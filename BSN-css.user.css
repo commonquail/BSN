@@ -1,0 +1,54 @@
+@namespace url(http://www.w3.org/1999/xhtml);
+
+/*@-moz-document url("http://social.bioware.com/user_home.php") {*/
+@-moz-document url-prefix("http://social.bioware.com/") {
+  /* Hide the carousel. */
+  #home_carousel_wrapper { display:none }
+
+  /* The New Updates bubble bugs out for many users; hide it. */
+/*  #newupdates {display:none!important}*/
+  
+  /* Increase font size for text heavy areas. */
+  #content_middle_column .home_whatsnew * {font-size: 9pt!important; }
+
+  /* Hide the right column. To retain the group subscription
+     notification see
+     >> http://userscripts.org/scripts/show/127615 << */
+  #content_right_column { display:none }
+
+  /* Hide the "My Friends" / "Everyone" tabs. */
+  #content_middle_column .tab_wrapper { display:none }
+
+  /* Hide the W40K ad. */
+  #lower_sidebar { display:none }
+  
+  /* Replace the solid background with a transparent one.
+     Mostly aimed at themes. */
+  #sidebar_user_wrapper { background-color:#121212 }
+  #uberwrapper {
+    /* FF3.6+ */
+    background:-moz-linear-gradient(left,
+      rgba(0,0,0,0) 0%,
+      rgba(18,18,18,0.8) 2%,
+      rgba(18,18,18,0.8) 98%,
+      rgba(0,0,0,0) 100%)!important;
+    /* Chrome10+,Safari5.1+ */
+    background:-webkit-linear-gradient(left,
+      rgba(0,0,0,0) 0%,
+      rgba(18,18,18,0.8) 2%,
+      rgba(18,18,18,0.8) 98%,
+      rgba(0,0,0,0) 100%)!important;
+    /* Opera 11.10+ */
+    background:-o-linear-gradient(left,
+      rgba(0,0,0,0) 0%,
+      rgba(18,18,18,0.8) 2%,
+      rgba(18,18,18,0.8) 98%,
+      rgba(0,0,0,0) 100%)!important;
+    /* IE10+ */
+    background:-ms-linear-gradient(left,
+      rgba(0,0,0,0) 0%,
+      rgba(18,18,18,0.8) 2%,
+      rgba(18,18,18,0.8) 98%,
+      rgba(0,0,0,0) 100%)!important;
+  }
+}
