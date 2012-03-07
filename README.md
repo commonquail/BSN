@@ -6,6 +6,10 @@ The stylesheet hides several space wasters completely inconsequential to the ave
 
 The script primarily seeks to address the shortcomings of CSS on a clumsily coded site, such as moving important parts of the right sidebar, like subscription notifications, to the left. It adds no extra functionality.
 
+## Installation
+
+It is recommended to install the files from their [userstyles.org][CSS] respectively [userscripts.org][JS] pages to better facilitate updating.
+
 ## Support
 
 Officially, only the latest stable version of Firefox is supported. Other browsers have less developed (or no) alternatives to Firefox' addons for user files. The `linear-gradient` property is supported by all major browsers as of IE10 but only in vendor specific format. For other browsers, change `moz` to one of `webkit`, `o`, or `ms`.
@@ -16,5 +20,7 @@ Officially, only the latest stable version of Firefox is supported. Other browse
 * [Greasemonkey][] 0.9.18+
 
 [BSN]: http://social.bioware.com/
+[JS]: http://userscripts.org/scripts/show/127615
+[CSS]: http://userstyles.org/styles/62091
 [Stylish]: https://addons.mozilla.org/da/firefox/addon/stylish/
 [Greasemonkey]: https://addons.mozilla.org/da/firefox/addon/greasemonkey/
