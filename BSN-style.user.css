@@ -34,7 +34,7 @@
   { font-size:9pt!important }
 
   /* Hide Report link on discussion list. */
-  #group_discussions td > div[style^="color"] a,
+  #group_discussions td > div[style^="color"] br + a,
   #group_discussions br
   { display:none }
   
