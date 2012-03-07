@@ -27,11 +27,15 @@
     margin-top:0px!important
   }
 
-  /* Increase font size for text heavy areas. */
+  /* Increase font size and contrast for text heavy areas. Site default is 8pt
+     and #aaa. */
   #content_middle_column .home_whatsnew td,
   #content_middle_column .home_whatsnew td + td > div,
-  #content_only_column .group_discussion_post_content div
-  { font-size:9pt!important }
+  #content_only_column .group_discussion_post_content div,
+  div .SEPForumTextOutput {
+    font-size:9pt!important;
+    color:#bbb!important
+  }
 
   /* Hide Report link on discussion list. */
   #group_discussions td > div[style^="color"] br + a,
@@ -55,24 +59,12 @@
 
 @-moz-document url-prefix("http://social.bioware.com/forum") {
   /* Hide: portrait; moderator list; "Forum" header; RSS link; ratings; forum
-     description. */
+     description; signatures. */
   #sidebar, #content .moderators, div .SEPForumInstanceHeader, .forum_rss_link,
-  #forum_rating_original, img[src$="rating_small.png"], .category .subline
-, #content .forum_post_signature
+  #forum_rating_original, img[src*="rating_"], .category .subline,
+  #content .forum_post_signature
   { display : none !important; }
 
-  /* Increase width of forum/thread name and post content. */
-  tr.parentCategoryCaptions td:nth-child(3), div .SEPForumTextOutput {
-    width:auto!important
-  }
-  
-  /* Clean up quotes. */
-  blockquote.postQuote {
-    margin-right:5px;
-    border-style:solid!important;
-    border-color:#777!important
-  }
-  
   /* Expand to fill most of the width. */
   #content {
     margin-top:0px!important;
@@ -80,17 +72,17 @@
     width:970px!important;
   }
 
-  /* Increase the height of the Quick Reply form. */
-  .SEPPosts td textarea { height:250px!important; }
+  /* Increase width of forum/thread name and post content. */
+  tr.parentCategoryCaptions td:nth-child(3), div .SEPForumTextOutput {
+    width:auto!important
+  }
   
-  /* The rounded corner images don't work with the wide layout, remove them.
-     Also fill post body with background. */
-  .roundbox_head > span, .roundbox_head, .roundbox_foot > span, .roundbox_foot,
-  .content_headline > span, .content_headline, .parentCategoryTopMiddle,
-  .parentCategoryTopRight, .parentCategoryTopLeft, .parentCategoryBottomMiddle,
-  .parentCategoryBottomLeft, .parentCategoryBottomRight, table.SEPPosts
-  { background:#323232 none no-repeat!important; }
-
+  /* Reposition breadcrumbs and buttons. */
+  .forum_mainactions, .forum_breadcrumb {
+    padding:0px!important;
+    margin:6px 0px 0px 0px!important;
+  }
+  
   /* Improve pager usability. */
   .SEPForumPagination a
   {
@@ -103,12 +95,41 @@
     color:#fff!important;
   }
 
-  /* Reposition breadcrumbs and buttons. */
-  .forum_mainactions, .forum_breadcrumb {
-    padding:0px!important;
-    margin:6px 0px 0px 0px!important;
+  /* The rounded corner images don't work with the wide layout, remove them.
+     Also fill post body with background. */
+  .roundbox_head > span, .roundbox_head, .roundbox_foot > span, .roundbox_foot,
+  .content_headline > span, .content_headline, .parentCategoryTopMiddle,
+  .parentCategoryTopRight, .parentCategoryTopLeft, .parentCategoryBottomMiddle,
+  .parentCategoryBottomLeft, .parentCategoryBottomRight, table.SEPPosts {
+    background:#323232 none no-repeat!important;
+    border:none!important;
   }
-  
+
+  /* Forum category emphasis. */
+  .parentCategory td {
+    background-color:#3d3d3d!important;
+    padding:5px 0px 5px 0px!important;
+  }
+  .parentCategory td .title { font-size:10pt!important; }
+
   /* Alternating colours for thread listings. */
   table.SEPForumTopicsOverview .background2 td { background:#3a3a3a!important; }
+
+  /* The poster box has a hideous gradient. Remove it and place some borders
+     instead. */
+  td.userInfo {
+    background-image:none!important;
+    border-top:1px solid #555;
+  }
+  table.SEPPosts tr:last-child td { border-bottom:1px solid #555!important }
+
+  /* Clean up quotes. */
+  blockquote.postQuote {
+    margin-right:5px;
+    border-style:solid!important;
+    border-color:#777!important
+  }
+  
+  /* Increase the height of the Quick Reply form. */
+  .SEPPosts td textarea { height:250px!important; }
 }
