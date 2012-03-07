@@ -22,5 +22,5 @@ Officially, only the latest stable version of Firefox is supported. Other browse
 [BSN]: http://social.bioware.com/
 [JS]: http://userscripts.org/scripts/show/127615
 [CSS]: http://userstyles.org/styles/62091
-[Stylish]: https://addons.mozilla.org/da/firefox/addon/stylish/
+[Stylish]: https://addons.mozilla.org/da/firefox/addon/stylish
 [Greasemonkey]: https://addons.mozilla.org/da/firefox/addon/greasemonkey/

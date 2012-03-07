@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.2.0
+// @version       1.2.1
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
 // @description   Move the Group Subscriptions block in the right sidebar, when
 //                present, to the left sidebar. This is meant to be used with
@@ -10,9 +10,7 @@
 // ==/UserScript==
 (function () {
   x = document.getElementById('content_right_column').childNodes;
-  if (document.URL.indexOf('user_home.php') >= 0) {
-    if (x[3].childNodes[1].innerHTML == 'Group Subscriptions') {
-      document.getElementById('sidebar').appendChild(x[3]);
-    }
+  if (x[3].childNodes[1].innerHTML == 'Group Subscriptions') {
+    document.getElementById('sidebar').appendChild(x[3]);
   }
 }());
