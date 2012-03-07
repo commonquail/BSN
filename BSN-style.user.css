@@ -37,6 +37,9 @@
     color:#bbb!important
   }
 
+  /* Hide gradient background for discussion-poster. */
+  #content_only_column .group_discussion_item1 { background:none!important }
+
   /* Hide Report link on discussion list. */
   #group_discussions td > div[style^="color"] br + a,
   #group_discussions br
