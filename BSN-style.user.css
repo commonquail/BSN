@@ -52,3 +52,63 @@
       rgba(0,0,0,0) 100%)!important;
   }
 }
+
+@-moz-document url-prefix("http://social.bioware.com/forum") {
+  /* Hide: portrait; moderator list; "Forum" header; RSS link; ratings; forum
+     description. */
+  #sidebar, #content .moderators, div .SEPForumInstanceHeader, .forum_rss_link,
+  #forum_rating_original, img[src$="rating_small.png"], .category .subline
+, #content .forum_post_signature
+  { display : none !important; }
+
+  /* Increase width of forum/thread name and post content. */
+  tr.parentCategoryCaptions td:nth-child(3), div .SEPForumTextOutput {
+    width:auto!important
+  }
+  
+  /* Clean up quotes. */
+  blockquote.postQuote {
+    margin-right:5px;
+    border-style:solid!important;
+    border-color:#777!important
+  }
+  
+  /* Expand to fill most of the width. */
+  #content {
+    margin-top:0px!important;
+    margin-left:5px!important;
+    width:970px!important;
+  }
+
+  /* Increase the height of the Quick Reply form. */
+  .SEPPosts td textarea { height:250px!important; }
+  
+  /* The rounded corner images don't work with the wide layout, remove them.
+     Also fill post body with background. */
+  .roundbox_head > span, .roundbox_head, .roundbox_foot > span, .roundbox_foot,
+  .content_headline > span, .content_headline, .parentCategoryTopMiddle,
+  .parentCategoryTopRight, .parentCategoryTopLeft, .parentCategoryBottomMiddle,
+  .parentCategoryBottomLeft, .parentCategoryBottomRight, table.SEPPosts
+  { background:#323232 none no-repeat!important; }
+
+  /* Improve pager usability. */
+  .SEPForumPagination a
+  {
+    padding:0px 5px 0px 5px!important;
+    margin:0px!important;
+  }
+  .SEPForumPagination a:hover
+  {
+    text-decoration:underline!important;
+    color:#fff!important;
+  }
+
+  /* Reposition breadcrumbs and buttons. */
+  .forum_mainactions, .forum_breadcrumb {
+    padding:0px!important;
+    margin:6px 0px 0px 0px!important;
+  }
+  
+  /* Alternating colours for thread listings. */
+  table.SEPForumTopicsOverview .background2 td { background:#3a3a3a!important; }
+}
