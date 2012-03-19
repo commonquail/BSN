@@ -17,7 +17,12 @@
   #topbar { display:none }
   
   /* The New Updates bubble bugs out for many users; hide it. */
-  /*#newupdates { display:none!important }
+  #newupdates {
+    /*display:none!important;*/
+    top:55px!important;
+    left:30px!important;
+    z-index:1!important;
+  }
   
   /* On other pages, move the right sidebar to the left, below the control
      panel, to show more of the theme. */
@@ -135,4 +140,13 @@
   
   /* Increase the height of the Quick Reply form. */
   .SEPPosts td textarea { height:250px!important; }
+  
+  /* Style custom search field. */
+  div.searchwrapper { width:50%!important; }
+  div.searchwrapper input {
+    background:none #fff!important;
+  }
+  div.searchwrapper input[type='text'] {
+    padding:0px 2px 0px 2px!important;
+  }
 }
