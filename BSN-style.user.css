@@ -40,12 +40,16 @@
      and #aaa. */
   #content_middle_column .home_whatsnew td,
   #content_middle_column .home_whatsnew td + td > div,
-  #content_only_column .group_discussion_post_content div[id^="p"],
+  #content_only_column .group_discussion_post_content div,
   div .SEPForumTextOutput {
     font-size:9pt!important;
     color:#bbb!important
   }
 
+  /* Above change also affects group discussion edit boxes. Fix their text
+     colours. */
+  #content_only_column .group_discussion_post_content textarea div { color:#000!important;}
+  
   /* Hide gradient background for discussion-poster. */
   #content_only_column .group_discussion_item1 { background:none!important }
 
