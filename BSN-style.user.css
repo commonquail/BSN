@@ -76,7 +76,7 @@
 @-moz-document url-prefix("http://social.bioware.com/forum") {
   /* Hide: portrait; moderator list; "Forum" header; RSS link; ratings; forum
      description; signatures. */
-  #sidebar, #content .moderators, div .SEPForumInstanceHeader, .forum_rss_link,
+  #sidebar, #content .moderators, .SEPForumInstanceHeader, .forum_rss_link,
   #forum_rating_original, img[src*="rating_"], .category .subline,
   #content .forum_post_signature
   { display : none !important; }
@@ -89,7 +89,7 @@
   }
 
   /* Increase width of forum/thread name and post content. */
-  tr.parentCategoryCaptions td:nth-child(3), div .SEPForumTextOutput {
+  .parentCategoryCaptions td:nth-child(3), .SEPForumTextOutput {
     width:auto!important
   }
   
@@ -129,18 +129,18 @@
   .parentCategory td .title { font-size:10pt!important; }
 
   /* Alternating colours for thread listings. */
-  table.SEPForumTopicsOverview .background2 td { background:#3a3a3a!important; }
+  .SEPForumTopicsOverview .background2 td { background:#3a3a3a!important; }
 
   /* The poster box has a hideous gradient. Remove it and place some borders
      instead. */
-  td.userInfo {
+  .userInfo {
     background-image:none!important;
     border-top:1px solid #555;
   }
-  table.SEPPosts tr:last-child td { border-bottom:1px solid #555!important }
+  .SEPPosts tr:last-child td { border-bottom:1px solid #555!important }
 
   /* Clean up quotes. */
-  blockquote.postQuote {
+  .postQuote {
     margin-right:5px;
     border-style:solid!important;
     border-color:#777!important
@@ -150,11 +150,11 @@
   .SEPPosts td textarea { height:250px!important; }
   
   /* Style custom search field. */
-  div.searchwrapper { width:50%!important; }
-  div.searchwrapper input {
+  .searchwrapper { width:50%!important; }
+  .searchwrapper input {
     background:none #fff!important;
   }
-  div.searchwrapper input[type='text'] {
+  .searchwrapper input[type='text'] {
     padding:0px 2px 0px 2px!important;
   }
 }
