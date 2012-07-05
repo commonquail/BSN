@@ -41,7 +41,7 @@
   #content_middle_column .home_whatsnew td,
   #content_middle_column .home_whatsnew td + td > div,
   #content_only_column .group_discussion_post_content div,
-  div .SEPForumTextOutput {
+  .SEPForumTextOutput, .seBlogEntryBody, .messages_view2 {
     font-size:9pt!important;
     color:#bbb!important
   }
