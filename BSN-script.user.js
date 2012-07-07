@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.4.1
+// @version       1.4.2
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
 // @description   Companion script for user style http://bit.ly/zDe42J. Further
 //                details on script page.
@@ -26,25 +26,24 @@
     
     unsafeWindow.editPost = function(id) {
       if (unsafeWindow.isEditing) {
-        document.getElementById('editPostForm').submit();
+        if (document.getElementById('post_edit_'+id).value === '') {
+          alert('Please enter a message to post.');
+          return false;
+        }
         unsafeWindow.isEditing = false;
-        return false;
+        document.getElementById('editPostForm').submit();
       } else {
         unsafeWindow.isEditing = true;
         var postElement = document.getElementById('post_div_' + id);
         var height = postElement.offsetHeight + 10;
         var postText = document.getElementById('post_body_'+id).innerHTML.replace(/<br>/gi, '\r\n').replace(/>/gi, '&gt;');
-        var group_id = 4181;
-        var topic_id = 14761;
         var pathArray = window.location.pathname.split('/');
-        console.log(pathArray[2]);
-        console.log(pathArray[4]);
-        group_id = pathArray[2];
-        topic_id = pathArray[4];
+        var group_id = pathArray[2];
+        var topic_id = pathArray[4];
         
         postElement.innerHTML = [
           "<form action='group_discussion_view.php' method='post' target='ajaxframe' name='editPostForm' id='editPostForm'>",
-          "<textarea name='grouppost_body' id='post_edit_" + id + "' style='height: " + height +" px; width: 100%;'>" + postText + "</textarea>",
+          "<textarea name='grouppost_body' id='post_edit_" + id + "' style='height: " + height +"px; width: 100%;'>" + postText + "</textarea>",
           "<input type='hidden' name='task' value='post_edit'>",
           "<input type='hidden' name='grouppost_id' value='" + id + "'>",
           "<input type='hidden' name='group_id' value='" + group_id + "'>",
@@ -54,23 +53,6 @@
         // Inject
         unsafeWindow.textarea_autogrow('post_edit_' + id);
         document.getElementById('post_edit_' + id).focus();
-
-        // Add events
-        /*
-        (document.getElementById('post_edit_' + id)).onblur = function() {
-          document.editPostForm.submit();
-          unsafeWindow.isEditing = false;
-        });
-        
-        document.getElementById('editPostForm').addEvent('submit', function() {
-          if (document.getElementById('post_edit_'+id).value == '') {
-            alert('Please enter a message to post.');
-            return false;
-          } else {
-            return true;
-          }
-        }); 
-        */
       }
     }
   }
