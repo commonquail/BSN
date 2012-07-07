@@ -29,41 +29,49 @@
         document.getElementById('editPostForm').submit();
         unsafeWindow.isEditing = false;
         return false;
+      } else {
+        unsafeWindow.isEditing = true;
+        var postElement = document.getElementById('post_div_' + id);
+        var height = postElement.offsetHeight + 10;
+        var postText = document.getElementById('post_body_'+id).innerHTML.replace(/<br>/gi, '\r\n').replace(/>/gi, '&gt;');
+        var group_id = 4181;
+        var topic_id = 14761;
+        var pathArray = window.location.pathname.split('/');
+        console.log(pathArray[2]);
+        console.log(pathArray[4]);
+        group_id = pathArray[2];
+        topic_id = pathArray[4];
+        
+        postElement.innerHTML = [
+          "<form action='group_discussion_view.php' method='post' target='ajaxframe' name='editPostForm' id='editPostForm'>",
+          "<textarea name='grouppost_body' id='post_edit_" + id + "' style='height: " + height +" px; width: 100%;'>" + postText + "</textarea>",
+          "<input type='hidden' name='task' value='post_edit'>",
+          "<input type='hidden' name='grouppost_id' value='" + id + "'>",
+          "<input type='hidden' name='group_id' value='" + group_id + "'>",
+          "<input type='hidden' name='grouptopic_id' value='" + topic_id + "'>",
+          "</form>"].join('');
+
+        // Inject
+        unsafeWindow.textarea_autogrow('post_edit_' + id);
+        document.getElementById('post_edit_' + id).focus();
+
+        // Add events
+        /*
+        (document.getElementById('post_edit_' + id)).onblur = function() {
+          document.editPostForm.submit();
+          unsafeWindow.isEditing = false;
+        });
+        
+        document.getElementById('editPostForm').addEvent('submit', function() {
+          if (document.getElementById('post_edit_'+id).value == '') {
+            alert('Please enter a message to post.');
+            return false;
+          } else {
+            return true;
+          }
+        }); 
+        */
       }
-      unsafeWindow.isEditing = true;
-      var postElement = document.getElementById('post_div_' + id);
-      var height = postElement.offsetHeight + 10;
-      var postText = document.getElementById('post_body_'+id).innerHTML.replace(/<br>/gi, '\r\n').replace(/>/gi, '&gt;');
-      var innerHTML = '';
-      innerHTML += "<form action='group_discussion_view.php' method='post' target='ajaxframe' name='editPostForm' id='editPostForm'>";
-      innerHTML += "<textarea name='grouppost_body' id='post_edit_" + id + "' style='height: " + height +" px; width: 100%;'>" + postText + "</textarea>";
-      innerHTML += "<input type='hidden' name='task' value='post_edit'>";
-      innerHTML += "<input type='hidden' name='grouppost_id' value='" + id + "'>";
-      innerHTML += "<input type='hidden' name='group_id' value='4181'>";
-      innerHTML += "<input type='hidden' name='grouptopic_id' value='14761'>";
-      innerHTML += "</form>";
-
-      // Inject
-      postElement.innerHTML = innerHTML;
-      unsafeWindow.textarea_autogrow('post_edit_' + id);
-      document.getElementById('post_edit_' + id).focus();
-
-      // Add events
-      /*
-      (document.getElementById('post_edit_' + id)).onblur = function() {
-        document.editPostForm.submit();
-        unsafeWindow.isEditing = false;
-      });
-      
-      document.getElementById('editPostForm').addEvent('submit', function() {
-        if (document.getElementById('post_edit_'+id).value == '') {
-          alert('Please enter a message to post.');
-          return false;
-        } else {
-          return true;
-        }
-      }); 
-      */
     }
   }
 }());
