@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.4.3
+// @version       1.4.4
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
 // @description   Companion script for user style http://bit.ly/zDe42J. Further
 //                details on script page.
@@ -24,7 +24,7 @@ function $(id) { return document.getElementById(id); };
     
     
     unsafeWindow.editPost = function(id) {
-      var x = $('post_' + id);
+      var y = $('post_' + id).nextSibling.nextSibling.childNodes[1].childNodes[0].childNodes[3].childNodes[1].childNodes[1].childNodes[5];
       if (unsafeWindow.isEditing) {
         if ($('post_edit_' + id).value === '') {
           alert('Please enter a message to post.');
@@ -32,10 +32,12 @@ function $(id) { return document.getElementById(id); };
         }
         unsafeWindow.isEditing = false;
         $('editPostForm').submit();
-        x.nextSibling.nextSibling.childNodes[1].childNodes[0].childNodes[3].childNodes[1].childNodes[1].childNodes[5].childNodes[1].innerHTML = '<img src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_edit16.gif" class="button" style="float: left;" border="0"> Edit Post';
+        y.innerHTML = '<span> Saving...</span>';
+        setTimeout(function() { y.innerHTML =
+          '<a href="javascript:void(0);" onclick="editPost(\'' + id + '\');"> <img src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_edit16.gif" class="button" style="float: left;" border="0"> Edit Post </a>'; }, 1000);
       } else {
         unsafeWindow.isEditing = true;
-        x.nextSibling.nextSibling.childNodes[1].childNodes[0].childNodes[3].childNodes[1].childNodes[1].childNodes[5].childNodes[1].innerHTML = '<img src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_edit16.gif" class="button" style="float: left;" border="0"> Save Post';
+        y.innerHTML = '<a href="javascript:void(0);" onclick="editPost(\'' + id + '\');"> <img src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_edit16.gif" class="button" style="float: left;" border="0"> Save Post </a>';
         var postElement = $('post_div_' + id);
         var height = postElement.offsetHeight + 10;
         var postText = $('post_body_' + id).innerHTML.replace(/<br>/gi, '\r\n').replace(/>/gi, '&gt;');
