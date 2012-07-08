@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.5.2
+// @version       1.6.0
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
 // @description   Companion script for user style http://bit.ly/zDe42J. Further
 //                details on script page.
@@ -37,31 +37,36 @@ function BBC2HTML(S) {
   return R(A(A(S, I), B));
 }
 
+function textAreaAdjust(o) {
+    o.style.height = "1px";
+    o.style.height = (20+o.scrollHeight)+"px";
+}
+
 (function () {
-  var x;
+  var o;
   if (document.URL.indexOf('user_home.php') >= 0) {
-    x = $('content_right_column').childNodes;
-    if (x[3].childNodes[1].innerHTML == 'Group Subscriptions') {
-      $('sidebar').appendChild(x[3]);
+    o = $('content_right_column').childNodes;
+    if (o[3].childNodes[1].innerHTML == 'Group Subscriptions') {
+      $('sidebar').appendChild(o[3]);
     }
   } else if (document.URL.indexOf('forum') >= 0) {
     document.forms[1].innerHTML = '<form action="http://www.google.com/search" method="get"><div class="searchwrapper"><input type="hidden" value="social.bioware.com" name="sitesearch"><input type="text" value="" name="q" style="width:300px" class="search"><input type="submit" value="Google Search" ></div></form>';
   } else if (document.URL.indexOf('discussion/') >= 0) {
     unsafeWindow.editPost = function(id) {
-      x = $('post_' + id).nextSibling.nextSibling.childNodes[1].childNodes[0].childNodes[3].childNodes[1].childNodes[1].childNodes[5];
+      o = $('post_' + id).nextSibling.nextSibling.childNodes[1].childNodes[0].childNodes[3].childNodes[1].childNodes[1].childNodes[5];
       if (unsafeWindow.isEditing) {
         if ($('post_edit_' + id).value === '') {
           alert('Please enter a message to post.');
           return false;
         }
         $('editPostForm').submit();
-        x.innerHTML = '<span>Saving...</span>';
+        o.innerHTML = '<span>Saving...</span>';
         unsafeWindow.isEditing = false;
-        setTimeout(function() { x.innerHTML = '<a href="javascript:void(0);" onclick="editPost(\'' + id + '\');"><img src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_edit16.gif" class="button" style="float:left;" border="0">Edit Post</a>'; }, 1000);
+        setTimeout(function() { o.innerHTML = '<a href="javascript:void(0);" onclick="editPost(\'' + id + '\');"><img src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_edit16.gif" class="button" style="float:left;" border="0">Edit Post</a>'; }, 1000);
         setTimeout(function() {(function (e) {e.innerHTML = BBC2HTML(e.innerHTML);})($('post_div_' + id));}, 800);
       } else {
         unsafeWindow.isEditing = true;
-        x.innerHTML = '<a href="javascript:void(0);" onclick="editPost(\'' + id + '\');"><img src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_edit16.gif" class="button" style="float: left;" border="0">Save Post</a>';
+        o.innerHTML = '<a href="javascript:void(0);" onclick="editPost(\'' + id + '\');"><img src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_edit16.gif" class="button" style="float: left;" border="0">Save Post</a>';
         var postElement = $('post_div_' + id);
         var height = postElement.offsetHeight + 10;
         var postText = $('post_body_' + id).innerHTML.replace(/<br>/gi, '\r\n').replace(/>/gi, '&gt;');
@@ -83,5 +88,12 @@ function BBC2HTML(S) {
         $('post_edit_' + id).focus();
       }
     } // editPost()
+    
+    unsafeWindow.quote = function(id, user) {
+      o = $('group_discussion_reply');
+      o.value += [(o.value !== '' ? '\r\n' : ''), '[quote=', user, ']', '\r\n',
+          $('post_body_'+id).innerHTML.replace(/<br>/g, '\r\n'), '[/quote]', '\r\n'].join('');
+      textAreaAdjust(o);
+    } // quote()
   }
 }());
