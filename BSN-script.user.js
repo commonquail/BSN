@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.6.1
+// @version       1.6.2
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
 // @description   Companion script for user style http://bit.ly/zDe42J. Further
 //                details on script page.
@@ -92,11 +92,14 @@ function textAreaAdjust(o) {
     
     unsafeWindow.quote = function(id, user) {
       var sel = '';
-      if (window.getSelection) { sel = window.getSelection().toString(); }
+      if (window.getSelection && window.getSelection().anchorNode &&
+         (window.getSelection().anchorNode.parentNode.id.substr(9)) === id) {
+        sel = window.getSelection().toString();
+      }
       o = $('group_discussion_reply');
-      o.value += [(o.value !== '' ? '\r\n' : ''), '[quote=', user, ']', '\r\n',
+      o.value += [(o.value !== '' ? '\r\n' : ''), '[quote=', user, ']\r\n',
           (sel ? sel : $('post_body_' + id).innerHTML).replace(/<br>/g, '\r\n'),
-          '[/quote]', '\r\n'].join('');
+          '\r\n[/quote]\r\n'].join('');
       textAreaAdjust(o);
     } // quote()
   }
