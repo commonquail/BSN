@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.6.0
+// @version       1.6.1
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
 // @description   Companion script for user style http://bit.ly/zDe42J. Further
 //                details on script page.
@@ -76,7 +76,8 @@ function textAreaAdjust(o) {
         
         postElement.innerHTML = [
           "<form action='group_discussion_view.php' method='post' target='ajaxframe' name='editPostForm' id='editPostForm'>",
-          "<textarea name='grouppost_body' id='post_edit_", id, "' style='height: ", height, "px; width:100%;'>", postText, "</textarea>",
+          "<textarea name='grouppost_body' id='post_edit_", id,
+          "' style='height: ", height, "px; width:100%;'>", postText, "</textarea>",
           "<input type='hidden' name='task' value='post_edit'>",
           "<input type='hidden' name='grouppost_id' value='", id, "'>",
           "<input type='hidden' name='group_id' value='", group_id, "'>",
@@ -90,9 +91,12 @@ function textAreaAdjust(o) {
     } // editPost()
     
     unsafeWindow.quote = function(id, user) {
+      var sel = '';
+      if (window.getSelection) { sel = window.getSelection().toString(); }
       o = $('group_discussion_reply');
       o.value += [(o.value !== '' ? '\r\n' : ''), '[quote=', user, ']', '\r\n',
-          $('post_body_'+id).innerHTML.replace(/<br>/g, '\r\n'), '[/quote]', '\r\n'].join('');
+          (sel ? sel : $('post_body_' + id).innerHTML).replace(/<br>/g, '\r\n'),
+          '[/quote]', '\r\n'].join('');
       textAreaAdjust(o);
     } // quote()
   }
