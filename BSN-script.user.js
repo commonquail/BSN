@@ -38,8 +38,9 @@ function BBC2HTML(S) {
 }
 
 (function () {
+  var x;
   if (document.URL.indexOf('user_home.php') >= 0) {
-    var x = $('content_right_column').childNodes;
+    x = $('content_right_column').childNodes;
     if (x[3].childNodes[1].innerHTML == 'Group Subscriptions') {
       $('sidebar').appendChild(x[3]);
     }
@@ -47,22 +48,20 @@ function BBC2HTML(S) {
     document.forms[1].innerHTML = '<form action="http://www.google.com/search" method="get"><div class="searchwrapper"><input type="hidden" value="social.bioware.com" name="sitesearch"><input type="text" value="" name="q" style="width:300px" class="search"><input type="submit" value="Google Search" ></div></form>';
   } else if (document.URL.indexOf('discussion/') >= 0) {
     unsafeWindow.editPost = function(id) {
-      var x = $('post_' + id);
-      var y = x.nextSibling.nextSibling.childNodes[1].childNodes[0].childNodes[3].childNodes[1].childNodes[1].childNodes[5];
+      x = $('post_' + id).nextSibling.nextSibling.childNodes[1].childNodes[0].childNodes[3].childNodes[1].childNodes[1].childNodes[5];
       if (unsafeWindow.isEditing) {
         if ($('post_edit_' + id).value === '') {
           alert('Please enter a message to post.');
           return false;
         }
-        unsafeWindow.isEditing = false;
         $('editPostForm').submit();
-        y.innerHTML = '<span>Saving...</span>';
-        setTimeout(function() { y.innerHTML =
-          '<a href="javascript:void(0);" onclick="editPost(\'' + id + '\');"> <img src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_edit16.gif" class="button" style="float: left;" border="0">Edit Post</a>'; }, 1000);
+        x.innerHTML = '<span>Saving...</span>';
+        unsafeWindow.isEditing = false;
+        setTimeout(function() { x.innerHTML = '<a href="javascript:void(0);" onclick="editPost(\'' + id + '\');"><img src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_edit16.gif" class="button" style="float:left;" border="0">Edit Post</a>'; }, 1000);
         setTimeout(function() {(function (e) {e.innerHTML = BBC2HTML(e.innerHTML);})($('post_div_' + id));}, 800);
       } else {
         unsafeWindow.isEditing = true;
-        y.innerHTML = '<a href="javascript:void(0);" onclick="editPost(\'' + id + '\');"> <img src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_edit16.gif" class="button" style="float: left;" border="0">Save Post</a>';
+        x.innerHTML = '<a href="javascript:void(0);" onclick="editPost(\'' + id + '\');"><img src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_edit16.gif" class="button" style="float: left;" border="0">Save Post</a>';
         var postElement = $('post_div_' + id);
         var height = postElement.offsetHeight + 10;
         var postText = $('post_body_' + id).innerHTML.replace(/<br>/gi, '\r\n').replace(/>/gi, '&gt;');
