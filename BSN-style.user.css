@@ -5,20 +5,30 @@
   #home_carousel_wrapper { display:none }
 
   /* Hide the "My Friends" / "Everyone" tabs. */
-  #content_middle_column .tab_wrapper { display:none }
+  #content_middle_column .tab_wrapper,
 
+  /* Hide the RoC update notice. */
+  #rules_update_overlay,
+  
   /* Hide the right column on the home page. To retain the group subscription
      notification see
      >> http://userscripts.org/scripts/show/127615 << */
   #content_right_column { display:none }
+  
+  /* Extend width of SU comment box. */
+  .newsfeedplus_comment_wrapper {
+    width:auto!important;
+    margin-right:22px;
+  }
+  .newsfeedplus_comment_body { max-width:100%!important; }
 }
 @-moz-document url-prefix("http://social.bioware.com/") {
   /* Hide the banner. */
   #topbar { display:none }
   
-  /* The New Updates bubble bugs out for many users; hide it. */
+  /* Reposition the New Updates bubble to account for no banner. If the bubble
+     is stuck on a missing update, PM Jeff Roussell to remove it. */
   #newupdates {
-    /*display:none!important;*/
     top:55px!important;
     left:30px!important;
     z-index:1!important;
@@ -88,6 +98,9 @@
     width:970px!important;
   }
 
+  /* Hide the RoC update notice. */
+  #content > .SEPForumInstanceHeader + div { display:none; }
+  
   /* Increase width of forum/thread name and post content. */
   .parentCategoryCaptions td:nth-child(3), .SEPForumTextOutput {
     width:auto!important
