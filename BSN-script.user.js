@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.6.2
+// @version       1.6.3
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
 // @description   Companion script for user style http://bit.ly/zDe42J. Further
 //                details on script page.
@@ -9,40 +9,41 @@
 // @include       http://social.bioware.com/forum*
 // @include       http://social.bioware.com/group/*/discussion/*
 // ==/UserScript==
-function $(id) { return document.getElementById(id); };
+(function () {
+  function $(id) { return document.getElementById(id); };
 
-// GPL http://ufku.com/personal/bbc2html
-function BBC2HTML(S) {
-  if (S.indexOf('[') < 0) {return S;}
+  // GPL http://ufku.com/personal/bbc2html 
+  function BBC2HTML(S) {
+    if (S.indexOf('[') < 0) {return S;}
 
-  function X(p, f) {return new RegExp(p, f);}
-  function D(s) {return rD.exec(s);}
-  function R(s) {return s.replace(rB, P);}
-  function A(s, p) {for (var i in p) s = s.replace(X(i, 'g'), p[i]); return s;}
+    function X(p, f) {return new RegExp(p, f);}
+    function D(s) {return rD.exec(s);}
+    function R(s) {return s.replace(rB, P);}
+    function A(s, p) {for (var i in p) s = s.replace(X(i, 'g'), p[i]); return s;}
 
-  function P($0, $1, $2, $3) {
-    if ($3 && $3.indexOf('[') > -1) $3 = R($3);
-    switch ($1) {
-      case 'url': return '<a '+ L[$1] + ($2||$3) +'">'+ $3 +'</a>';
-      case 'b':case 'i':case 'u':case 's': return '<'+ $1 +'>'+ $3 +'</'+ $1 +'>';
+    function P($0, $1, $2, $3) {
+      if ($3 && $3.indexOf('[') > -1) $3 = R($3);
+      switch ($1) {
+        case 'url': return '<a '+ L[$1] + ($2||$3) +'">'+ $3 +'</a>';
+        case 'img': var d = D($2); return '<img src="'+ $3 +'" class="bb-image"/>';
+        case 'b':case 'i':case 'u':case 's': return '<'+ $1 +'>'+ $3 +'</'+ $1 +'>';
+      }
+      return '['+ $1 + ($2 ? '='+ $2 : '') +']'+ $3 +'[/'+ $1 +']';
     }
-    return '['+ $1 + ($2 ? '='+ $2 : '') +']'+ $3 +'[/'+ $1 +']';
+
+    var rB = X('\\[([a-z][a-z0-9]*)(?:=([^\\]]+))?]((?:.|[\r\n])*?)\\[/\\1]', 'g'), rD = X('^(\\d+)x(\\d+)$');
+    var L = {url: 'href="', 'anchor': 'name="', email: 'href="mailto: '};
+    var I = {}, B = {};
+
+    B['\\[list]'] = '<ul>'; B['\\[list=(\\w)]'] = function($0, $1) {return '<ul style="list-style-type: '+ (U[$1]||'disc') +'">'}; B['\\[/list]'] = '</ul>'; B['\\[\\*]'] = '<li>';
+    return R(A(A(S, I), B));
   }
 
-  var rB = X('\\[([a-z][a-z0-9]*)(?:=([^\\]]+))?]((?:.|[\r\n])*?)\\[/\\1]', 'g'), rD = X('^(\\d+)x(\\d+)$');
-  var L = {url: 'href="', 'anchor': 'name="', email: 'href="mailto: '};
-  var I = {}, B = {};
+  function textAreaAdjust(e) {
+      e.style.height = "1px";
+      e.style.height = (20+e.scrollHeight)+"px";
+  }
 
-  B['\\[list]'] = '<ul>'; B['\\[list=(\\w)]'] = function($0, $1) {return '<ul style="list-style-type: '+ (U[$1]||'disc') +'">'}; B['\\[/list]'] = '</ul>'; B['\\[\\*]'] = '<li>';
-  return R(A(A(S, I), B));
-}
-
-function textAreaAdjust(o) {
-    o.style.height = "1px";
-    o.style.height = (20+o.scrollHeight)+"px";
-}
-
-(function () {
   var o;
   if (document.URL.indexOf('user_home.php') >= 0) {
     o = $('content_right_column').childNodes;
@@ -92,9 +93,24 @@ function textAreaAdjust(o) {
     
     unsafeWindow.quote = function(id, user) {
       var sel = '';
-      if (window.getSelection && window.getSelection().anchorNode &&
-         (window.getSelection().anchorNode.parentNode.id.substr(9)) === id) {
-        sel = window.getSelection().toString();
+      var origPoster = '';
+      if (window.getSelection && window.getSelection().anchorNode)
+      {
+        o = window.getSelection().anchorNode.parentNode;
+        if (o.className === 'group_discussion_quote' ||
+            o.className === 'postQuote') {
+          origPoster = o.firstChild.innerHTML.substr(0,
+            o.firstChild.innerHTML.indexOf(' said:'));
+          o = o.parentNode;
+        }
+        while (o.className === 'group_discussion_quote' ||
+               o.className === 'postQuote') {
+          o = o.parentNode;
+        }
+        if (o.id.substr(9) === id) {
+          sel = (origPoster ? '[quote=' + origPoster + ']\r\n' : '') +
+            window.getSelection().toString() + (origPoster ? '[/quote]' : '');
+        }
       }
       o = $('group_discussion_reply');
       o.value += [(o.value !== '' ? '\r\n' : ''), '[quote=', user, ']\r\n',
