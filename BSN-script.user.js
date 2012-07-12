@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.6.3
+// @version       1.6.4
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
 // @description   Companion script for user style http://bit.ly/zDe42J. Further
 //                details on script page.
@@ -94,6 +94,10 @@
     unsafeWindow.quote = function(id, user) {
       var sel = '';
       var origPoster = '';
+      var p;
+      p = $('post_' + id).nextSibling.nextSibling.childNodes[1].childNodes[0].childNodes[3].childNodes[1].childNodes[1].lastChild.previousSibling;
+      p.innerHTML = "Quoted";
+      setTimeout(function() { p.innerHTML = '<a onclick="quote(\'' + id + '\', \'' + user + '\');" href="javascript:void(0);"><img style="float:left;" class="button" src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_discussion_quote16.gif">Quote</a>'; }, 500);
       if (window.getSelection && window.getSelection().anchorNode)
       {
         o = window.getSelection().anchorNode.parentNode;
