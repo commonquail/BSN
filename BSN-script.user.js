@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.6.4
+// @version       1.6.5
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
 // @description   Companion script for user style http://bit.ly/zDe42J. Further
 //                details on script page.
@@ -108,7 +108,7 @@
 
     function P($0, $1, $2, $3) {
       if ($3 && $3.indexOf('[') > -1) $3 = R($3);
-      switch ($1) {
+      switch ($1.toLowerCase()) {
         case 'url': return '<a '+ L[$1] + ($2||$3) +'">'+ $3 +'</a>';
         case 'img': var d = D($2); return '<img src="'+ $3 +'" class="bb-image"/>';
         case 'b':case 'i':case 'u':case 's': return '<'+ $1 +'>'+ $3 +'</'+ $1 +'>';
@@ -116,8 +116,8 @@
       return '['+ $1 + ($2 ? '='+ $2 : '') +']'+ $3 +'[/'+ $1 +']';
     }
 
-    var rB = X('\\[([a-z][a-z0-9]*)(?:=([^\\]]+))?]((?:.|[\r\n])*?)\\[/\\1]', 'g'), rD = X('^(\\d+)x(\\d+)$');
-    var L = {url: 'href="', 'anchor': 'name="', email: 'href="mailto: '};
+    var rB = X('\\[([A-z][A-z0-9]*)(?:=([^\\]]+))?]((?:.|[\r\n])*?)\\[/\\1]', 'g'), rD = X('^(\\d+)x(\\d+)$');
+    var L = {url: 'href="', anchor: 'name="', email: 'href="mailto: '};
     var I = {}, B = {};
 
     B['\\[list]'] = '<ul>'; B['\\[list=(\\w)]'] = function($0, $1) {return '<ul style="list-style-type: '+ (U[$1]||'disc') +'">'}; B['\\[/list]'] = '</ul>'; B['\\[\\*]'] = '<li>';
