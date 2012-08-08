@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.6.5
+// @version       1.7.0
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
 // @description   Companion script for user style http://bit.ly/zDe42J. Further
 //                details on script page.
@@ -19,13 +19,26 @@
       $('sidebar').appendChild(o[3]);
     }
   } else if (document.URL.indexOf('forum') >= 0) {
+    // Inject Google site search in place of broken forum search.
     document.forms[1].innerHTML = '<form action="http://www.google.com/search" method="get"><div class="searchwrapper"><input type="hidden" value="social.bioware.com" name="sitesearch"><input type="text" value="" name="q" style="width:300px" class="search"><input type="submit" value="Google Search" ></div></form>';
   } else if (document.URL.indexOf('discussion/') >= 0) {
     unsafeWindow.editPost = editPost;
     unsafeWindow.quote = quote;
   }
+  // This needs to be queued since the ME3 bar is JS driven and starts empty.
+  setTimeout(hideDowntimeME3Bar, 0);
+  
+  // There are ~10 days of downtime after operation completion, hide the bar until
+  // the next operation is announced.
+  function hideDowntimeME3Bar() {
+    if (!$("textA").innerHTML.match(/(gin in |u have )$/)) {
+      $('me3bar').style.display = "none";
+      $('page_body').style.backgroundPosition = "center 0";
+    }
+  }
   
   function editPost(id) {
+    // Edit button.
     o = $('post_' + id).nextSibling.nextSibling.childNodes[1].childNodes[0].childNodes[3].childNodes[1].childNodes[1].childNodes[5];
     if (unsafeWindow.isEditing) {
       if ($('post_edit_' + id).value === '') {
