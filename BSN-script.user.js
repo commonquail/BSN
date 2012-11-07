@@ -66,7 +66,9 @@
       posts.push({author: author, time: time, text: text});
     }
 
-    output.push('<html><head><style type="text/css">',
+    output.push('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"',
+      ' "http://www.w3.org/TR/html4/loose.dtd"><html><head><title>', name,
+      '</title><style type="text/css">',
       'body {font-family: Calibri,Verdana, sans-serif;margin-bottom:5%;}',
       '#info{margin: 0px auto 0px auto;max-width:800px;}',
       '#info h1,#info p{margin: 0px;}',
