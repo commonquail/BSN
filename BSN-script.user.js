@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.8.1
+// @version       1.8.2
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
 // @grant         none
 // @require       http://raw.github.com/eligrey/FileSaver.js/master/FileSaver.min.js
@@ -36,6 +36,8 @@
       '.html" onClick="return exportPM(\'', name,
       '\');">Export PM as HTML</a>'].join('');
     contentNodes[7].appendChild(p);
+    var separatorTR = contentNodes[15].children[0].children[contentNodes[15].children[0].children.length - 2];
+    separatorTR.innerHTML = '<td colspan="2">&nbsp;</td><td><a href="' + location.pathname + location.search + '#content">Top</a></td>'
   }
   // This needs to be queued since the ME3 bar is JS driven and starts empty.
   setTimeout(hideDowntimeME3Bar, 0);
@@ -104,7 +106,7 @@
     return false;
   };
 
-  // There are ~10 days of downtime after operation completion, hide the bar until
+  // There is a bit of downtime after operation completion, hide the bar until
   // the next operation is announced.
   function hideDowntimeME3Bar() {
     if (!$("textA").innerHTML.match(/(gin in |u have )$/)) {
