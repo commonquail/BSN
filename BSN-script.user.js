@@ -94,6 +94,7 @@
       '.text{max-width:700px;padding:10px;}',
       '</style></head><body>',
       '<div id="info"><h1>', name, '</h1>',
+      '<p>URL: <a href="', location.href.split('#', 1)[0], '">', location.href.split('#', 1)[0], '</a></p>',
       '<p>', posts.length, ' posts</p>',
       '<p>First post: ', posts[0].time, '</p>',
       '<p>Last post: ', posts[posts.length - 1].time, '</p>',
