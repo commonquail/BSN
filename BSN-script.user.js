@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.8.0
+// @version       1.8.1
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
 // @grant         none
 // @require       http://raw.github.com/eligrey/FileSaver.js/master/FileSaver.min.js
@@ -31,7 +31,7 @@
     var p = document.createElement('p');
     var contentNodes = $('content').childNodes;
     var name = contentNodes[5].textContent.replace(/[^-_.a-zA-Z0-9 ]/g, "");
-    name = (name || 'unnamed');
+    name = name || 'unnamed';
     p.innerHTML = ['<a href="#" download="', name,
       '.html" onClick="return exportPM(\'', name,
       '\');">Export PM as HTML</a>'].join('');
@@ -47,6 +47,7 @@
     authors = [],
     output = [];
     
+    /* The last two elements make up the reply form. */
     for (var i = 0; i < postNodes.length - 2; i = i+2) {
       var author = postNodes[i].children[1].children[0];
       var time = postNodes[i].children[1].children[1].innerHTML;
@@ -59,7 +60,10 @@
     }
 
     output.push('<html><head><style type="text/css">',
-      'table{font-family: Calibri,Verdana, sans-serif;margin: 0px auto 0px auto;border-collapse:collapse;}',
+      'body {font-family: Calibri,Verdana, sans-serif;margin-bottom:5%;}',
+      '#info{margin: 0px auto 0px auto;max-width:800px;}',
+      '#info h1,#info p{margin: 0px;}',
+      'table{margin: 0px auto 0px auto;border-collapse:collapse;max-width:800px;}',
       'td {border-top: 2px solid white;}',
       '.name{margin:10px 10px 0px 10px;}',
       'a {text-decoration: none;}',
@@ -67,20 +71,26 @@
       'a:active{color:red!important;}',
       '.name a:visited, .name a{color: green;}',
       '.author{vertical-align: top;}',
-      '.author1{background-color:#FBF5E6;}',
-      '.author2{background-color:#EEF3E2;}',
-      '.author3{background-color:#EBECE4;}',
-      '.author4{background-color:#ECF1EF;}',
-      '.author5{background-color:#F1EDC2;}',
-      '.author6{background-color:#FEE0C6;}',
+      '.author1{background-color:hsl(43,72%,94%);}',
+      '.author2{background-color:hsl(78,41%,92%);}',
+      '.author3{background-color:hsl(68,17%,91%);}',
+      '.author4{background-color:hsl(156,15%,94%);}',
+      '.author5{background-color:hsl(55,63%,85%);}',
+      '.author6{background-color:hsl(28,97%,89%);}',
+      '.author1 td:first-of-type{background-color:hsl(43,72%,84%);}',
+      '.author2 td:first-of-type{background-color:hsl(78,41%,82%);}',
+      '.author3 td:first-of-type{background-color:hsl(68,17%,81%);}',
+      '.author4 td:first-of-type{background-color:hsl(156,15%,84%);}',
+      '.author5 td:first-of-type{background-color:hsl(55,63%,75%);}',
+      '.author6 td:first-of-type{background-color:hsl(28,97%,79%);}',
       '.time{font-size: 0.7em;color:gray;margin:0px 10px 10px 10px;}',
       '.text{max-width:700px;padding:10px;}',
       '</style></head><body>',
-      '<h1>', name, '</h1>',
+      '<div id="info"><h1>', name, '</h1>',
       '<p>', posts.length, ' posts</p>',
       '<p>First post: ', posts[0].time, '</p>',
       '<p>Last post: ', posts[posts.length - 1].time, '</p>',
-      '<p>Participants: ', authors.map(function(x) { return x.innerHTML; }).join(', '), '</p><table><tbody>');
+      '<p>Participants: ', authors.map(function(x) { return x.innerHTML; }).join(', '), '</p></div><table><tbody>');
 
     for (var i = 0; i < posts.length; ++i) {
       output.push('\n<tr class="', authors[posts[i].author.textContent],
