@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.8.2
+// @version       1.8.3
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
 // @grant         none
 // @require       http://raw.github.com/eligrey/FileSaver.js/master/FileSaver.min.js
@@ -26,6 +26,11 @@
   } else if (document.URL.indexOf('/discussion/') >= 0) {
     uw.editPost = editPost;
     uw.quote = quote;
+    var post = document.getElementById('content').childNodes[15];
+    var nav = document.getElementById('content').childNodes[15].childNodes[1].childNodes[0].childNodes[3].childNodes[1];
+    post.parentNode.insertBefore(nav, post);
+    nav.childNodes[1].childNodes[0].childNodes[3].setAttribute('align', 'center');
+    post.childNodes[1].childNodes[0].childNodes[1].childNodes[3].childNodes[3].childNodes[1].style.width="760px"
   } else if (document.URL.indexOf('user_messages_view') >= 0) {
     uw.exportPM = exportPM;
     var p = document.createElement('p');
