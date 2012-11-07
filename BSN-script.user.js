@@ -1,18 +1,20 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.7.0
+// @version       1.8.0
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
+// @grant         none
+// @require       http://raw.github.com/eligrey/FileSaver.js/master/FileSaver.min.js
 // @description   Companion script for user style http://bit.ly/zDe42J. Further
 //                details on script page.
-// @include       http://social.bioware.com/user_home.php*
-// @include       http://social.bioware.com/forum*
-// @include       http://social.bioware.com/group/*/discussion/*
+// @include       http://social.bioware.com/*
 // ==/UserScript==
 (function () {
   function $(id) { return document.getElementById(id); };
 
   var o;
+  var uw = (this.unsafeWindow) ? this.unsafeWindow : window;
+  
   if (document.URL.indexOf('user_home.php') >= 0) {
     o = $('content_right_column').childNodes;
     if (o[3].childNodes[1].innerHTML == 'Group Subscriptions') {
@@ -21,13 +23,77 @@
   } else if (document.URL.indexOf('forum') >= 0) {
     // Inject Google site search in place of broken forum search.
     document.forms[1].innerHTML = '<form action="http://www.google.com/search" method="get"><div class="searchwrapper"><input type="hidden" value="social.bioware.com" name="sitesearch"><input type="text" value="" name="q" style="width:300px" class="search"><input type="submit" value="Google Search" ></div></form>';
-  } else if (document.URL.indexOf('discussion/') >= 0) {
-    unsafeWindow.editPost = editPost;
-    unsafeWindow.quote = quote;
+  } else if (document.URL.indexOf('/discussion/') >= 0) {
+    uw.editPost = editPost;
+    uw.quote = quote;
+  } else if (document.URL.indexOf('user_messages_view') >= 0) {
+    uw.exportPM = exportPM;
+    var p = document.createElement('p');
+    var contentNodes = $('content').childNodes;
+    var name = contentNodes[5].textContent.replace(/[^-_.a-zA-Z0-9 ]/g, "");
+    name = (name || 'unnamed');
+    p.innerHTML = ['<a href="#" download="', name,
+      '.html" onClick="return exportPM(\'', name,
+      '\');">Export PM as HTML</a>'].join('');
+    contentNodes[7].appendChild(p);
   }
   // This needs to be queued since the ME3 bar is JS driven and starts empty.
   setTimeout(hideDowntimeME3Bar, 0);
-  
+
+  function exportPM(name) {
+    var contentNodes = contentNodes || $('content').childNodes;
+    var postNodes = contentNodes[15].children[0].children;
+    var posts = [],
+    authors = [],
+    output = [];
+    
+    for (var i = 0; i < postNodes.length - 2; i = i+2) {
+      var author = postNodes[i].children[1].children[0];
+      var time = postNodes[i].children[1].children[1].innerHTML;
+      var text = postNodes[i].children[2].innerHTML;
+      if (!authors[author.textContent]) {
+        authors.push(author);
+        authors[author.textContent] = 'author' + authors.length;
+      }
+      posts.push({author: author, time: time, text: text});
+    }
+
+    output.push('<html><head><style type="text/css">',
+      'table{font-family: Calibri,Verdana, sans-serif;margin: 0px auto 0px auto;border-collapse:collapse;}',
+      'td {border-top: 2px solid white;}',
+      '.name{margin:10px 10px 0px 10px;}',
+      'a {text-decoration: none;}',
+      'a:hover {color:blue!important;text-decoration: underline;}',
+      'a:active{color:red!important;}',
+      '.name a:visited, .name a{color: green;}',
+      '.author{vertical-align: top;}',
+      '.author1{background-color:#FBF5E6;}',
+      '.author2{background-color:#EEF3E2;}',
+      '.author3{background-color:#EBECE4;}',
+      '.author4{background-color:#ECF1EF;}',
+      '.author5{background-color:#F1EDC2;}',
+      '.author6{background-color:#FEE0C6;}',
+      '.time{font-size: 0.7em;color:gray;margin:0px 10px 10px 10px;}',
+      '.text{max-width:700px;padding:10px;}',
+      '</style></head><body>',
+      '<h1>', name, '</h1>',
+      '<p>', posts.length, ' posts</p>',
+      '<p>First post: ', posts[0].time, '</p>',
+      '<p>Last post: ', posts[posts.length - 1].time, '</p>',
+      '<p>Participants: ', authors.map(function(x) { return x.innerHTML; }).join(', '), '</p><table><tbody>');
+
+    for (var i = 0; i < posts.length; ++i) {
+      output.push('\n<tr class="', authors[posts[i].author.textContent],
+        '"><td class="author"><div class="name">', posts[i].author.innerHTML,
+        '</div><div class="time">', posts[i].time,
+        '</div></td><td class="text">', posts[i].text, '</td></tr>');
+    }
+    
+    output.push('</tbody></table></body></html>');
+    saveAs(new Blob(output, { 'type' : 'text/html;charset=utf-8' }), name + '.html');
+    return false;
+  };
+
   // There are ~10 days of downtime after operation completion, hide the bar until
   // the next operation is announced.
   function hideDowntimeME3Bar() {
@@ -40,18 +106,18 @@
   function editPost(id) {
     // Edit button.
     o = $('post_' + id).nextSibling.nextSibling.childNodes[1].childNodes[0].childNodes[3].childNodes[1].childNodes[1].childNodes[5];
-    if (unsafeWindow.isEditing) {
+    if (uw.isEditing) {
       if ($('post_edit_' + id).value === '') {
         alert('Please enter a message to post.');
         return false;
       }
       $('editPostForm').submit();
       o.innerHTML = '<span>Saving...</span>';
-      unsafeWindow.isEditing = false;
+      uw.isEditing = false;
       setTimeout(function() { o.innerHTML = '<a href="javascript:void(0);" onclick="editPost(\'' + id + '\');"><img src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_edit16.gif" class="button" style="float:left;" border="0">Edit Post</a>'; }, 1000);
       setTimeout(function() {(function (e) {e.innerHTML = BBC2HTML(e.innerHTML);})($('post_div_' + id));}, 800);
     } else {
-      unsafeWindow.isEditing = true;
+      uw.isEditing = true;
       o.innerHTML = '<a href="javascript:void(0);" onclick="editPost(\'' + id + '\');"><img src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_edit16.gif" class="button" style="float: left;" border="0">Save Post</a>';
       var postElement = $('post_div_' + id);
       var height = postElement.offsetHeight + 10;
@@ -71,7 +137,7 @@
         "</form>"].join('');
 
       // Inject
-      unsafeWindow.textarea_autogrow('post_edit_' + id);
+      uw.textarea_autogrow('post_edit_' + id);
       $('post_edit_' + id).focus();
     }
   } // editPost()
