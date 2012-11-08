@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.8.3
+// @version       1.8.4
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
 // @grant         none
 // @require       http://raw.github.com/eligrey/FileSaver.js/master/FileSaver.min.js
@@ -12,11 +12,10 @@
 (function () {
   function $(id) { return document.getElementById(id); };
 
-  var o;
   var uw = (this.unsafeWindow) ? this.unsafeWindow : window;
   
   if (document.URL.indexOf('user_home.php') >= 0) {
-    o = $('content_right_column').childNodes;
+    var o = $('content_right_column').childNodes;
     if (o[3].childNodes[1].innerHTML == 'Group Subscriptions') {
       $('sidebar').appendChild(o[3]);
     }
@@ -26,11 +25,13 @@
   } else if (document.URL.indexOf('/discussion/') >= 0) {
     uw.editPost = editPost;
     uw.quote = quote;
-    var post = document.getElementById('content').childNodes[15];
-    var nav = document.getElementById('content').childNodes[15].childNodes[1].childNodes[0].childNodes[3].childNodes[1];
-    post.parentNode.insertBefore(nav, post);
-    nav.childNodes[1].childNodes[0].childNodes[3].setAttribute('align', 'center');
-    post.childNodes[1].childNodes[0].childNodes[1].childNodes[3].childNodes[3].childNodes[1].style.width="760px"
+    (function() { // Let's not keep these references around.
+      var post = document.getElementById('content').childNodes[15];
+      var nav = document.getElementById('content').childNodes[15].childNodes[1].childNodes[0].childNodes[3].childNodes[1];
+      post.parentNode.insertBefore(nav, post);
+      nav.childNodes[1].childNodes[0].childNodes[3].setAttribute('align', 'center');
+      post.childNodes[1].childNodes[0].childNodes[1].childNodes[3].childNodes[3].childNodes[1].style.width="760px"
+    }());
   } else if (document.URL.indexOf('user_messages_view') >= 0) {
     uw.exportPM = exportPM;
     var p = document.createElement('p');
@@ -54,63 +55,68 @@
     authors = [],
     output = [];
     
-    /* The last two elements make up the reply form. */
-    for (var i = 0; i < postNodes.length - 2; i = i+2) {
-      var author = postNodes[i].children[1].children[0];
-      var time = postNodes[i].children[1].children[1].innerHTML;
-      var text = postNodes[i].children[2].innerHTML;
-      if (!authors[author.textContent]) {
-        authors.push(author);
-        authors[author.textContent] = 'author' + authors.length;
+    // Make sure we have the library.
+    if (!!this.saveAs) {
+      /* The last two elements make up the reply form. */
+      for (var i = 0; i < postNodes.length - 2; i = i+2) {
+        var author = postNodes[i].children[1].children[0];
+        var time = postNodes[i].children[1].children[1].innerHTML;
+        var text = postNodes[i].children[2].innerHTML;
+        if (!authors[author.textContent]) {
+          authors.push(author);
+          authors[author.textContent] = 'author' + authors.length;
+        }
+        posts.push({author: author, time: time, text: text});
       }
-      posts.push({author: author, time: time, text: text});
-    }
 
-    output.push('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"',
-      ' "http://www.w3.org/TR/html4/loose.dtd"><html><head><title>', name,
-      '</title><style type="text/css">',
-      'body {font-family: Calibri,Verdana, sans-serif;margin-bottom:5%;}',
-      '#info{margin: 0px auto 0px auto;max-width:800px;}',
-      '#info h1,#info p{margin: 0px;}',
-      'table{margin: 0px auto 0px auto;border-collapse:collapse;max-width:800px;}',
-      'td {border-top: 2px solid white;}',
-      '.name{margin:10px 10px 0px 10px;}',
-      'a {text-decoration: none;}',
-      'a:hover {color:blue!important;text-decoration: underline;}',
-      'a:active{color:red!important;}',
-      '.name a:visited, .name a{color: green;}',
-      '.author{vertical-align: top;}',
-      '.author1{background-color:hsl(43,72%,94%);}',
-      '.author2{background-color:hsl(78,41%,92%);}',
-      '.author3{background-color:hsl(68,17%,91%);}',
-      '.author4{background-color:hsl(156,15%,94%);}',
-      '.author5{background-color:hsl(55,63%,85%);}',
-      '.author6{background-color:hsl(28,97%,89%);}',
-      '.author1 td:first-of-type{background-color:hsl(43,72%,84%);}',
-      '.author2 td:first-of-type{background-color:hsl(78,41%,82%);}',
-      '.author3 td:first-of-type{background-color:hsl(68,17%,81%);}',
-      '.author4 td:first-of-type{background-color:hsl(156,15%,84%);}',
-      '.author5 td:first-of-type{background-color:hsl(55,63%,75%);}',
-      '.author6 td:first-of-type{background-color:hsl(28,97%,79%);}',
-      '.time{font-size: 0.7em;color:gray;margin:0px 10px 10px 10px;}',
-      '.text{max-width:700px;padding:10px;}',
-      '</style></head><body>',
-      '<div id="info"><h1>', name, '</h1>',
-      '<p>URL: <a href="', location.href.split('#', 1)[0], '">', location.href.split('#', 1)[0], '</a></p>',
-      '<p>', posts.length, ' posts</p>',
-      '<p>First post: ', posts[0].time, '</p>',
-      '<p>Last post: ', posts[posts.length - 1].time, '</p>',
-      '<p>Participants: ', authors.map(function(x) { return x.innerHTML; }).join(', '), '</p></div><table><tbody>');
+      output.push('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"',
+        ' "http://www.w3.org/TR/html4/loose.dtd"><html><head><title>', name,
+        '</title><style type="text/css">',
+        'body {font-family: Calibri,Verdana, sans-serif;margin-bottom:5%;}',
+        '#info{margin: 0px auto 0px auto;max-width:800px;}',
+        '#info h1,#info p{margin: 0px;}',
+        'table{margin: 0px auto 0px auto;border-collapse:collapse;max-width:800px;}',
+        'td {border-top: 2px solid white;}',
+        '.name{margin:10px 10px 0px 10px;}',
+        'a {text-decoration: none;}',
+        'a:hover {color:blue!important;text-decoration: underline;}',
+        'a:active{color:red!important;}',
+        '.name a:visited, .name a{color: green;}',
+        '.author{vertical-align: top;}',
+        '.author1{background-color:hsl(43,72%,94%);}',
+        '.author2{background-color:hsl(78,41%,92%);}',
+        '.author3{background-color:hsl(68,17%,91%);}',
+        '.author4{background-color:hsl(156,15%,94%);}',
+        '.author5{background-color:hsl(55,63%,85%);}',
+        '.author6{background-color:hsl(28,97%,89%);}',
+        '.author1 td:first-of-type{background-color:hsl(43,72%,84%);}',
+        '.author2 td:first-of-type{background-color:hsl(78,41%,82%);}',
+        '.author3 td:first-of-type{background-color:hsl(68,17%,81%);}',
+        '.author4 td:first-of-type{background-color:hsl(156,15%,84%);}',
+        '.author5 td:first-of-type{background-color:hsl(55,63%,75%);}',
+        '.author6 td:first-of-type{background-color:hsl(28,97%,79%);}',
+        '.time{font-size: 0.7em;color:gray;margin:0px 10px 10px 10px;}',
+        '.text{max-width:700px;padding:10px;}',
+        '</style></head><body>',
+        '<div id="info"><h1>', name, '</h1>',
+        '<p>URL: <a href="', location.href.split('#', 1)[0], '">', location.href.split('#', 1)[0], '</a></p>',
+        '<p>', posts.length, ' posts</p>',
+        '<p>First post: ', posts[0].time, '</p>',
+        '<p>Last post: ', posts[posts.length - 1].time, '</p>',
+        '<p>Participants: ', authors.map(function(x) { return x.innerHTML; }).join(', '), '</p></div><table><tbody>');
 
-    for (var i = 0; i < posts.length; ++i) {
-      output.push('\n<tr class="', authors[posts[i].author.textContent],
-        '"><td class="author"><div class="name">', posts[i].author.innerHTML,
-        '</div><div class="time">', posts[i].time,
-        '</div></td><td class="text">', posts[i].text, '</td></tr>');
+      for (var i = 0; i < posts.length; ++i) {
+        output.push('\n<tr class="', authors[posts[i].author.textContent],
+          '"><td class="author"><div class="name">', posts[i].author.innerHTML,
+          '</div><div class="time">', posts[i].time,
+          '</div></td><td class="text">', posts[i].text, '</td></tr>');
+      }
+      
+      output.push('</tbody></table></body></html>');
+      saveAs(new Blob(output, { 'type' : 'text/html;charset=utf-8' }), name + '.html');
+    } else {
+      alert("A BSN Greasemonkey script depends on a library that wasn't found.\nPlease re-install at http://userscripts.org/scripts/show/127615");
     }
-    
-    output.push('</tbody></table></body></html>');
-    saveAs(new Blob(output, { 'type' : 'text/html;charset=utf-8' }), name + '.html');
     return false;
   };
 
@@ -125,7 +131,7 @@
   
   function editPost(id) {
     // Edit button.
-    o = $('post_' + id).nextSibling.nextSibling.childNodes[1].childNodes[0].childNodes[3].childNodes[1].childNodes[1].childNodes[5];
+    var o = $('post_' + id).nextSibling.nextSibling.childNodes[1].childNodes[0].childNodes[3].childNodes[1].childNodes[1].childNodes[5];
     if (uw.isEditing) {
       if ($('post_edit_' + id).value === '') {
         alert('Please enter a message to post.');
@@ -163,8 +169,9 @@
   } // editPost()
 
   function quote(id, user) {
-    var sel = '';
-    var origPoster = '';
+    var o;
+    var selection = '',
+    origPoster = '';
     // Is there a selection?
     if (window.getSelection && window.getSelection().anchorNode) {
       o = window.getSelection().anchorNode.parentNode;
@@ -181,13 +188,13 @@
       }
       // Does the selection belong to the quoted post?
       if (o.id.substr(9) === id) {
-        sel = (origPoster ? '[quote=' + origPoster + ']\r\n' : '') +
+        selection = (origPoster ? '[quote=' + origPoster + ']\r\n' : '') +
           window.getSelection().toString() + (origPoster ? '[/quote]' : '');
       }
     }
     o = $('group_discussion_reply');
     o.value += [(o.value !== '' ? '\r\n' : ''), '[quote=', user, ']\r\n',
-        (sel ? sel : $('post_body_' + id).innerHTML).replace(/<br>/g, '\r\n'),
+        (selection ? selection : $('post_body_' + id).innerHTML).replace(/<br>/g, '\r\n'),
         '\r\n[/quote]\r\n'].join('');
     textAreaAdjust(o);
     // Indicate the post was quoted.
