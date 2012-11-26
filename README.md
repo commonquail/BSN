@@ -7,7 +7,7 @@ The stylesheet hides several space wasters completely inconsequential to the ave
 The script addresses a few corner case functionality issues, such as the retarded forum search and the clumsy group discussion interface, and additionally adds the ability to save trimmed down PMs locally.
 
 ### Last update
-2012-11-08
+2012-11-26
 
 ## Installation
 
