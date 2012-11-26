@@ -11,8 +11,7 @@
   #rules_update_overlay,
   
   /* Hide the right column on the home page. To retain the group subscription
-     notification see
-     >> http://userscripts.org/scripts/show/127615 << */
+     notification see http://userscripts.org/scripts/show/127615 */
   #content_right_column { display:none }
   
   /* Extend width of SU comment box. */
@@ -39,11 +38,13 @@
   #TB_iframeContent { height:510px!important; }
 
   /* On other pages, move the right sidebar to the left, below the control
-     panel, to show more of the theme. */
+     panel, to show more of the theme. see
+     http://userscripts.org/scripts/show/127615 */
   #content_right_column {
-    left:-194px;
-    top:447px!important;
-    margin-top:0px!important
+    position:inherit!important;
+  }
+  .secondary_column {
+    margin-top:0px!important;
   }
 
   /* Increase font size and contrast for text heavy areas. Site default is 8pt

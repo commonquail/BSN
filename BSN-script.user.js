@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.8.4
+// @version       1.8.5
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
 // @grant         none
 // @require       http://raw.github.com/eligrey/FileSaver.js/master/FileSaver.min.js
@@ -10,13 +10,14 @@
 // @include       http://social.bioware.com/*
 // ==/UserScript==
 (function () {
-  function $(id) { return document.getElementById(id); };
+  function $(id) { return document.getElementById(id); }
 
   var uw = (this.unsafeWindow) ? this.unsafeWindow : window;
+  var o;
   
   if (document.URL.indexOf('user_home.php') >= 0) {
-    var o = $('content_right_column').childNodes;
-    if (o[3].childNodes[1].innerHTML == 'Group Subscriptions') {
+    o = $('content_right_column').childNodes;
+    if (o[3].childNodes[1].innerHTML === 'Group Subscriptions') {
       $('sidebar').appendChild(o[3]);
     }
   } else if (document.URL.indexOf('forum') >= 0) {
@@ -27,24 +28,33 @@
     uw.quote = quote;
     (function() { // Let's not keep these references around.
       var post = document.getElementById('content').childNodes[15];
-      var nav = document.getElementById('content').childNodes[15].childNodes[1].childNodes[0].childNodes[3].childNodes[1];
+      var nav = document.getElementById('content').childNodes[15].childNodes[1].firstChild.childNodes[3].childNodes[1];
       post.parentNode.insertBefore(nav, post);
-      nav.childNodes[1].childNodes[0].childNodes[3].setAttribute('align', 'center');
-      post.childNodes[1].childNodes[0].childNodes[1].childNodes[3].childNodes[3].childNodes[1].style.width="760px"
+      nav.childNodes[1].firstChild.childNodes[3].setAttribute('align', 'center');
+      post.childNodes[1].firstChild.childNodes[1].childNodes[3].childNodes[3].childNodes[1].style.width="760px";
     }());
   } else if (document.URL.indexOf('user_messages_view') >= 0) {
     uw.exportPM = exportPM;
     var p = document.createElement('p');
     var contentNodes = $('content').childNodes;
-    var name = contentNodes[5].textContent.replace(/[^-_.a-zA-Z0-9 ]/g, "");
+    var name = contentNodes[5].textContent.replace(/[^\-_.a-zA-Z0-9 ]/g, "");
     name = name || 'unnamed';
     p.innerHTML = ['<a href="#" download="', name,
       '.html" onClick="return exportPM(\'', name,
       '\');">Export PM as HTML</a>'].join('');
     contentNodes[7].appendChild(p);
     var separatorTR = contentNodes[15].children[0].children[contentNodes[15].children[0].children.length - 2];
-    separatorTR.innerHTML = '<td colspan="2">&nbsp;</td><td><a href="' + location.pathname + location.search + '#content">Top</a></td>'
+    separatorTR.innerHTML = '<td colspan="2">&nbsp;</td><td><a href="' + location.pathname + location.search + '#content">Top</a></td>';
   }
+  
+  o = $('content_right_column');
+  if (o && document.URL.indexOf('user_home.php') < 0) {
+    (function(o) {
+      var u = document.getElementById("usermenuwrapper");
+      u.parentNode.insertBefore(o, u.parentNode.lastElementChild);
+    }(o));
+  }
+  
   // This needs to be queued since the ME3 bar is JS driven and starts empty.
   setTimeout(hideDowntimeME3Bar, 0);
 
@@ -53,12 +63,13 @@
     var postNodes = contentNodes[15].children[0].children;
     var posts = [],
     authors = [],
-    output = [];
+    output = [],
+    i = 0;
     
     // Make sure we have the library.
     if (!!this.saveAs) {
       /* The last two elements make up the reply form. */
-      for (var i = 0; i < postNodes.length - 2; i = i+2) {
+      for (i = 0; i < postNodes.length - 2; i = i+2) {
         var author = postNodes[i].children[1].children[0];
         var time = postNodes[i].children[1].children[1].innerHTML;
         var text = postNodes[i].children[2].innerHTML;
@@ -105,7 +116,7 @@
         '<p>Last post: ', posts[posts.length - 1].time, '</p>',
         '<p>Participants: ', authors.map(function(x) { return x.innerHTML; }).join(', '), '</p></div><table><tbody>');
 
-      for (var i = 0; i < posts.length; ++i) {
+      for (i = 0; i < posts.length; ++i) {
         output.push('\n<tr class="', authors[posts[i].author.textContent],
           '"><td class="author"><div class="name">', posts[i].author.innerHTML,
           '</div><div class="time">', posts[i].time,
@@ -118,12 +129,12 @@
       alert("A BSN Greasemonkey script depends on a library that wasn't found.\nPlease re-install at http://userscripts.org/scripts/show/127615");
     }
     return false;
-  };
+  }
 
   // There is a bit of downtime after operation completion, hide the bar until
   // the next operation is announced.
   function hideDowntimeME3Bar() {
-    if (!$("textA").innerHTML.match(/(gin in |u have )$/)) {
+    if ($("textA") && !$("textA").innerHTML.match(/(gin in |u have )$/)) {
       $('me3bar').style.display = "none";
       $('page_body').style.backgroundPosition = "center 0";
     }
@@ -200,7 +211,13 @@
     // Indicate the post was quoted.
     o = $('post_' + id).nextSibling.nextSibling.childNodes[1].childNodes[0].childNodes[3].childNodes[1].childNodes[1].lastChild.previousSibling;
     o.innerHTML = "Quoted";
-    setTimeout(function() {(function (e) {e.innerHTML = '<a onclick="quote(\'' + id + '\', \'' + user + '\');" href="javascript:void(0);"><img style="float:left;" class="button" src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_discussion_quote16.gif">Quote</a>';})(o);}, 800);
+    setTimeout(function() {
+      (function (e) {
+        e.innerHTML = ['<a onclick="quote(\'', id, '\', \'', user,
+          '\');" href="javascript:void(0);"><img style="float:left;"',
+          ' class="button" src="http://na.llnet.bioware.cdn.ea.com/u/f/eagames/bioware/social/images/icons/group_discussion_quote16.gif">Quote</a>'].join('');
+      })(o);
+    }, 800);
   } // quote()
 
   // GPL http://ufku.com/personal/bbc2html 
@@ -208,26 +225,24 @@
     if (S.indexOf('[') < 0) {return S;}
 
     function X(p, f) {return new RegExp(p, f);}
-    function D(s) {return rD.exec(s);}
     function R(s) {return s.replace(rB, P);}
-    function A(s, p) {for (var i in p) s = s.replace(X(i, 'g'), p[i]); return s;}
+    function A(s, p) {for (var i in p) {s = s.replace(X(i, 'g'), p[i]);} return s;}
 
     function P($0, $1, $2, $3) {
-      if ($3 && $3.indexOf('[') > -1) $3 = R($3);
+      if ($3 && $3.indexOf('[') > -1) {$3 = R($3);}
       switch ($1.toLowerCase()) {
-        case 'url': return '<a '+ L[$1] + ($2||$3) +'">'+ $3 +'</a>';
-        case 'img': var d = D($2); return '<img src="'+ $3 +'" class="bb-image"/>';
-        case 'b':case 'i':case 'u':case 's': return '<'+ $1 +'>'+ $3 +'</'+ $1 +'>';
+        case 'url': return ['<a ', L[$1], ($2||$3), '">', $3, '</a>'].join('');
+        case 'img': return ['<img src="', $3, '" class="bb-image"/>'].join('');
+        case 'b':case 'i':case 'u':case 's': return ['<', $1, '>', $3, '</', $1, '>'].join('');
       }
-      return '['+ $1 + ($2 ? '='+ $2 : '') +']'+ $3 +'[/'+ $1 +']';
+      return ['[', $1, ($2 ? '='+$2 : ''), ']', $3, '[/', $1, ']'].join('');
     }
 
-    var rB = X('\\[([A-z][A-z0-9]*)(?:=([^\\]]+))?]((?:.|[\r\n])*?)\\[/\\1]', 'g'), rD = X('^(\\d+)x(\\d+)$');
+    var rB = X('\\[([A-z][A-z0-9]*)(?:=([^\\]]+))?]((?:.|[\r\n])*?)\\[/\\1]', 'g');
     var L = {url: 'href="', anchor: 'name="', email: 'href="mailto: '};
-    var I = {}, B = {};
+    var I = {};
 
-    B['\\[list]'] = '<ul>'; B['\\[list=(\\w)]'] = function($0, $1) {return '<ul style="list-style-type: '+ (U[$1]||'disc') +'">'}; B['\\[/list]'] = '</ul>'; B['\\[\\*]'] = '<li>';
-    return R(A(A(S, I), B));
+    return R(A(S, I));
   }
 
   function textAreaAdjust(e) {
