@@ -14,6 +14,13 @@
      notification see http://userscripts.org/scripts/show/127615 */
   #content_right_column { display:none }
   
+  /* Extend SU comment input field. */
+  .newsfeedplus_comment_form {
+    width:auto!important;
+  }
+  .newsfeedplus_comment,.newsfeedplus_comment_active {
+    width:93%!important;
+  }
   /* Extend width of SU comment box. */
   .newsfeedplus_comment_wrapper {
     width:auto!important;
