@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name          BioWare Social Network: Home
 // @namespace     quail
-// @version       1.8.5
+// @version       1.8.6
 // @updateURL     http://userscripts.org/scripts/source/127615.user.js
 // @grant         none
-// @require       http://raw.github.com/eligrey/FileSaver.js/master/FileSaver.min.js
+// @require       https://raw.github.com/eligrey/FileSaver.js/master/FileSaver.js
 // @description   Companion script for user style http://bit.ly/zDe42J. Further
 //                details on script page.
 // @include       http://social.bioware.com/*
@@ -80,8 +80,8 @@
         posts.push({author: author, time: time, text: text});
       }
 
-      output.push('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"',
-        ' "http://www.w3.org/TR/html4/loose.dtd"><html><head><title>', name,
+      output.push('<!DOCTYPE html>',
+        '<html><head><title>', name,
         '</title><style type="text/css">',
         'body {font-family: Calibri,Verdana, sans-serif;margin-bottom:5%;}',
         '#info{margin: 0px auto 0px auto;max-width:800px;}',
