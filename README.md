@@ -1,4 +1,4 @@
-# BioWare Social Network user style and script
+# BioWare Forum Readability Fix
 
 A style/script set for prettying up the [BioWare Social Network][BSN], mainly intended for themes.
 
