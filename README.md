@@ -25,11 +25,8 @@ As of 1.8.0 the script requires the third party library [FileSaver.js][FileSaver
 ### Dependencies
 
 * [Stylish][] 1.2.6+
-* [Greasemonkey][] 0.9.18+
 
 [BSN]: http://social.bioware.com/
 [JS]: http://userscripts.org/scripts/show/127615
 [CSS]: http://userstyles.org/styles/62091
 [Stylish]: https://addons.mozilla.org/da/firefox/addon/stylish
-[Greasemonkey]: https://addons.mozilla.org/da/firefox/addon/greasemonkey/
-[FileSaver]: https://github.com/eligrey/FileSaver.js
