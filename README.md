@@ -24,9 +24,10 @@ As of 1.8.0 the script requires the third party library [FileSaver.js][FileSaver
 
 ### Dependencies
 
-* [Stylish][] 1.2.6+
+* [Stylish][] 1.4.1+
 
-[BSN]: http://social.bioware.com/
+[BSN]: http://forum.bioware.com/
 [JS]: http://userscripts.org/scripts/show/127615
-[CSS]: http://userstyles.org/styles/62091
-[Stylish]: https://addons.mozilla.org/da/firefox/addon/stylish
+[CSS]: http://userstyles.org/styles/98563/the-bioware-forum
+[Stylish]: https://addons.mozilla.org/firefox/addon/stylish/
+[Greasemonkey]: https://addons.mozilla.org/da/firefox/addon/greasemonkey/
