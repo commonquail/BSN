@@ -2,7 +2,7 @@
 
 @-moz-document url-prefix("http://forum.bioware.com") {
   .maintitle, .post_wrap > h3 { background-color: #929292!important; }
-  .post.entry-content p, .statuts_content { color: #000000; }
+  .post.entry-content p, .status_content { color: #000000; }
   .post.entry-content .ipsBlockquote p { color: #666666; }
   /* Status-update comment */
   .list_content,
