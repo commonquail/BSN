@@ -1,0 +1,128 @@
+@namespace url(http://www.w3.org/1999/xhtml);
+
+@-moz-document url-prefix("http://forum.bioware.com") {
+  /* Status-update comment */
+  .list_content,
+  /* Status-update comment input */
+  .input_text,
+  /* Forum post, quote */
+  .post.entry-content p,
+  /* Post previews */
+  #post_preview,
+  /* Thread starter, reply count, group quick-menu */
+  .ipsType_small, .hentry,
+  /* Thread header */
+  .ipsBox_withphoto > .desc { font-size: 10pt }
+  /* Thread name in listing */
+  .__topic a.topic_title,
+  /* PM name in listing */
+  .col_m_subject a { font-size: 11pt }
+  #mainContent {
+    background-color: #333;
+  }
+  #secondary_navigation,
+  .topic_buttons > li > a {
+    background-color: #929292;
+    text-shadow: none;
+  }
+  #secondary_navigation a {
+    color: #ddd;
+  }
+  a,
+  #more_topics a,
+  .topic_desc.desc.blend_links a,
+  table.ipb_table .col_f_views li > a,
+  #secondary_navigation a:hover {
+    color: #fff;
+  }
+  .ipsSideBlock h3 {
+    background-color: #666;
+    color: #ddd;
+  }
+  ul.mini_pagination > li > a,
+  .ipsLikeBar_info a {
+    color: #000;
+  }
+  .post_body .ipsBlockquote,
+  .statistics_head,
+  .ipbfs_titlebox {
+    border-color: #666;
+    background-color: #444;
+  }
+  #statusForm > input {
+    vertical-align: middle;
+  }
+  .topic_buttons > li > a:hover {
+    background-color: #aaa;
+  }
+  #post_preview,
+  .post.entry-content p,
+  .status_content,
+  .ipsType_pagetitle,
+  .topic_buttons > li.non_button > a:hover {
+    color: #ddd;
+  }
+  #more_topics {
+    border-top: none;
+    background-color: #929292;
+  }
+  #more_topics:hover {
+    background-color: #bebebe;
+  }
+  .ipsBox_container {
+    background-color: #333;
+    border-color: #666;
+  }
+  #forum_footer,
+  .pagejump > a,
+  .ipsButton_extra,
+  .ipsType_pagedesc.forum_rules,
+  .col_f_content > .topic_desc,
+  .download_pane h2,
+  .topic_buttons > li.non_button > a,
+  .col_f_views > ul > li,
+  .post.entry-content .ipsBlockquote p {
+    color: #bbb;
+  }
+  .ipsBox,
+  .statistics,
+  .row1,
+  .row2,
+  .post_block,
+  .column_view .post_body,
+  ul.post_controls,
+  .ipsSideBlock {
+    background: none;
+  }
+  .block_list li,
+  table.ipb_table td,
+  #forum_table.ipb_table tr:last-of-type > td,
+  #footer_utilities,
+  .download_pane h2,
+  .status_feedback .ipsList_withtinyphoto > li,
+  .ipsSideBlock h3,
+  .ipsList_withminiphoto li,
+  ul.post_controls {
+    border-color: #666;
+  }
+  ul.post_controls > li > a {
+    border-color: #666!important;
+    text-shadow: none;
+    color: #fff;
+  }
+  .post_body .citation {
+    background-color: #666;
+    border-color: #666;
+    text-shadow: none;
+  }
+  #post_preview {
+    border: 1px solid #666;
+  }
+  .ipsLikeBar_info a:hover,
+  ul.post_controls > li > a:hover,
+  table.ipb_table .col_f_views li > a:hover,
+  .topic_desc > a:hover,
+  .last_post > .highlight_unread > a:hover {
+    color: #A27C6F!important;
+  }
+}
