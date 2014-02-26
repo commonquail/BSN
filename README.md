@@ -1,18 +1,25 @@
-# BioWare Forum Readability Fix
+# BioWare Forum Fixes
 
-This is a quick fix the improve the readability of the [BioWare Forum][BSN], which was completely redesigned on 2014-02-24. It increases the font size for text meant to be read and changes some colours to improve contrast. It is not a theme changer.
+These user scripts improve the usability of the [BioWare Forum][BSN]. The style
+sheet aims to improve overall readability of the white theme while the script
+improves functionality such as navigation. See the respective sites for a
+feature overview; it won't be included here for maintenance reasons.
 
 ## Installation
 
-It is recommended to install the file from [userstyles.org][CSS] to better facilitate updating.
+It is recommended to install the files from [userstyles.org][CSS] respectively
+[userscripts.org][JS] to better facilitate updating.
 
 ## Support
 
-Officially, only the latest stable version of Firefox is supported. Several other major browsers have support for similar functionality, and Stylish exists in a Google Chrome version.
+Officially, only the latest stable version of Firefox is supported. Several
+other major browsers have support for similar functionality, and Stylish exists
+in a Google Chrome version.
 
 ### Dependencies
 
 * [Stylish][] 1.4.1+
+* [Greasemonkey][] 1.15+
 
 [BSN]: http://forum.bioware.com/
 [JS]: http://userscripts.org/scripts/show/127615
