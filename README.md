@@ -22,7 +22,7 @@ in a Google Chrome version.
 * [Greasemonkey][] 1.15+
 
 [BSN]: http://forum.bioware.com/
-[JS]: http://userscripts.org/scripts/show/127615
+[JS]: http://userscripts.org/scripts/show/399583
 [CSS]: http://userstyles.org/styles/98563/the-bioware-forum
 [Stylish]: https://addons.mozilla.org/firefox/addon/stylish/
 [Greasemonkey]: https://addons.mozilla.org/da/firefox/addon/greasemonkey/
