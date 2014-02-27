@@ -2,12 +2,16 @@
 
 @-moz-document url-prefix("http://forum.bioware.com") {
   .maintitle, .post_wrap > h3 { background-color: #929292!important; }
-  .post.entry-content p, .status_content { color: #000000; }
+  .post.entry-content p, .status_content,  #post_preview { color: #000000; }
   .post.entry-content .ipsBlockquote p { color: #666666; }
   /* Status-update comment */
   .list_content,
+  /* Status-update comment input */
+  .input_text,
   /* Forum post, quote */
   .post.entry-content p,
+  /* Post previews */
+  #post_preview,
   /* Thread starter, reply count, group quick-menu */
   .ipsType_small, .hentry,
   /* Thread header */
