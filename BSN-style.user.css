@@ -1,6 +1,8 @@
 @namespace url(http://www.w3.org/1999/xhtml);
 
 @-moz-document url-prefix("http://forum.bioware.com") {
+  /* Notification settings */
+  .notification_table .desc { font-size: 8pt!important }
   /* Status-update comment */
   .list_content,
   /* Status-update comment input */
