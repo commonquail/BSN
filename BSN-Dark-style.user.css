@@ -7,6 +7,8 @@
   .input_text,
   /* Forum post, quote */
   .post.entry-content p,
+  /* Forum posts on profile page */
+  #profile_panes_wrap .post p,
   /* Post previews */
   #post_preview,
   /* Thread starter, reply count, group quick-menu */
