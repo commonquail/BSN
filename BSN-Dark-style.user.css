@@ -43,6 +43,7 @@
     background-color: #666;
     color: #ddd;
   }
+  .ipsHeaderMenu a,
   ul.mini_pagination > li > a,
   .ipsLikeBar_info a {
     color: #000;
@@ -122,6 +123,7 @@
   #post_preview {
     border: 1px solid #666;
   }
+  .ipsHeaderMenu a:hover,
   .ipsLikeBar_info a:hover,
   ul.post_controls > li > a:hover,
   table.ipb_table .col_f_views li > a:hover,
