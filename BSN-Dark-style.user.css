@@ -44,6 +44,7 @@
     color: #ddd;
   }
   .ipsHeaderMenu a,
+  .popupInner a,
   ul.mini_pagination > li > a,
   .ipsLikeBar_info a {
     color: #000;
@@ -75,7 +76,7 @@
   #more_topics:hover {
     background-color: #bebebe;
   }
-  .ipsBox_container {
+  #mainContent .ipsBox_container {
     background-color: #333;
     border-color: #666;
   }
@@ -130,7 +131,14 @@
   #post_preview {
     border: 1px solid #666;
   }
+  .popupInner .ipsBox_container {
+    border-color: #dcdcdc;
+  }
+  .popupInner .block_list li {
+    border-color: #eee;
+  }
   .ipsHeaderMenu a:hover,
+  .popupInner a:hover,
   .ipsLikeBar_info a:hover,
   ul.post_controls > li > a:hover,
   table.ipb_table .col_f_views li > a:hover,
