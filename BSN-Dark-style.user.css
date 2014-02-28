@@ -73,7 +73,13 @@
   .post.entry-content p,
   .status_content,
   .ipsType_pagetitle,
+  .ipsType_subtitle,
   .no_messages,
+  label,
+  .notification_table,
+  .notification_table .desc,
+  .ipsSettings_sectiontitle,
+  #usercp_content strong,
   .topic_buttons > li.non_button > a:hover {
     color: #ddd;
   }
@@ -103,6 +109,7 @@
   .post.entry-content .ipsBlockquote p {
     color: #bbb;
   }
+  body#ipboard_body fieldset.submit,
   .ipsBox,
   .statistics,
   .row1,
@@ -122,6 +129,8 @@
   #forum_table.ipb_table tr:last-of-type > td,
   #footer_utilities,
   div#search_results li.liwrap,
+  body#ipboard_body fieldset.submit,
+  #usercp_content .ipsType_subtitle,
   .download_pane h2,
   .status_feedback .ipsList_withtinyphoto > li,
   .ipsSideBlock h3,
@@ -130,7 +139,9 @@
   .ipsList_withminiphoto li,
   .general_box h3,
   .ipsList_data li,
+  .signature,
   .ipsVerticalTabbed_tabs > ul,
+  .ipsSettings_section,
   ul.post_controls {
     border-color: #666;
   }
