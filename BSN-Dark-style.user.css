@@ -39,6 +39,7 @@
   #secondary_navigation a:hover {
     color: #fff;
   }
+  .general_box h3,
   .ipsSideBlock h3 {
     background-color: #666;
     color: #ddd;
@@ -51,9 +52,15 @@
   }
   .post_body .ipsBlockquote,
   .statistics_head,
+  .ipsVerticalTabbed_tabs li,
   .ipbfs_titlebox {
     border-color: #666;
     background-color: #444;
+  }
+  #profile_panes_wrap .bar,
+  .ipsVerticalTabbed_tabs li.active a {
+      background-color: #555;
+      color: #ddd
   }
   #statusForm > input {
     vertical-align: middle;
@@ -62,6 +69,7 @@
     background-color: #aaa;
   }
   #post_preview,
+  #profile_panes_wrap .post p,
   .post.entry-content p,
   .status_content,
   .ipsType_pagetitle,
@@ -81,6 +89,7 @@
     border-color: #666;
   }
   #forum_footer,
+  #profile_panes_wrap .ipsBlockquote p,
   .pagejump > a,
   .ipsButton_extra,
   .ipsSideMenu h4,
@@ -90,6 +99,7 @@
   .download_pane h2,
   .topic_buttons > li.non_button > a,
   .col_f_views > ul > li,
+  .general_box,
   .post.entry-content .ipsBlockquote p {
     color: #bbb;
   }
@@ -101,9 +111,12 @@
   .column_view .post_body,
   ul.post_controls,
   .no_messages,
+  .general_box,
   .ipsSideBlock {
     background: none;
   }
+  .content_border,
+  .post_block h3,
   .block_list li,
   table.ipb_table td,
   #forum_table.ipb_table tr:last-of-type > td,
@@ -115,6 +128,9 @@
   .ipsSideMenu > ul,
   .ipsSideMenu > ul > li,
   .ipsList_withminiphoto li,
+  .general_box h3,
+  .ipsList_data li,
+  .ipsVerticalTabbed_tabs > ul,
   ul.post_controls {
     border-color: #666;
   }
@@ -123,6 +139,7 @@
     text-shadow: none;
     color: #fff;
   }
+  #profile_panes_wrap .bar,
   .post_body .citation {
     background-color: #666;
     border-color: #666;
