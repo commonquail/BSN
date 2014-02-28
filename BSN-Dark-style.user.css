@@ -39,19 +39,28 @@
   #secondary_navigation a:hover {
     color: #fff;
   }
+  .general_box h3,
   .ipsSideBlock h3 {
     background-color: #666;
     color: #ddd;
   }
+  .ipsHeaderMenu a,
+  .popupInner a,
   ul.mini_pagination > li > a,
   .ipsLikeBar_info a {
     color: #000;
   }
   .post_body .ipsBlockquote,
   .statistics_head,
+  .ipsVerticalTabbed_tabs li,
   .ipbfs_titlebox {
     border-color: #666;
     background-color: #444;
+  }
+  #profile_panes_wrap .bar,
+  .ipsVerticalTabbed_tabs li.active a {
+      background-color: #555;
+      color: #ddd
   }
   #statusForm > input {
     vertical-align: middle;
@@ -60,9 +69,17 @@
     background-color: #aaa;
   }
   #post_preview,
+  #profile_panes_wrap .post p,
   .post.entry-content p,
   .status_content,
   .ipsType_pagetitle,
+  .ipsType_subtitle,
+  .no_messages,
+  label,
+  .notification_table,
+  .notification_table .desc,
+  .ipsSettings_sectiontitle,
+  #usercp_content strong,
   .topic_buttons > li.non_button > a:hover {
     color: #ddd;
   }
@@ -73,21 +90,26 @@
   #more_topics:hover {
     background-color: #bebebe;
   }
-  .ipsBox_container {
+  #mainContent .ipsBox_container {
     background-color: #333;
     border-color: #666;
   }
   #forum_footer,
+  #profile_panes_wrap .ipsBlockquote p,
   .pagejump > a,
   .ipsButton_extra,
+  .ipsSideMenu h4,
   .ipsType_pagedesc.forum_rules,
+  .ipsType_pagedesc,
   .col_f_content > .topic_desc,
   .download_pane h2,
   .topic_buttons > li.non_button > a,
   .col_f_views > ul > li,
+  .general_box,
   .post.entry-content .ipsBlockquote p {
     color: #bbb;
   }
+  body#ipboard_body fieldset.submit,
   .ipsBox,
   .statistics,
   .row1,
@@ -95,17 +117,31 @@
   .post_block,
   .column_view .post_body,
   ul.post_controls,
+  .no_messages,
+  .general_box,
   .ipsSideBlock {
     background: none;
   }
+  .content_border,
+  .post_block h3,
   .block_list li,
   table.ipb_table td,
   #forum_table.ipb_table tr:last-of-type > td,
   #footer_utilities,
+  div#search_results li.liwrap,
+  body#ipboard_body fieldset.submit,
+  #usercp_content .ipsType_subtitle,
   .download_pane h2,
   .status_feedback .ipsList_withtinyphoto > li,
   .ipsSideBlock h3,
+  .ipsSideMenu > ul,
+  .ipsSideMenu > ul > li,
   .ipsList_withminiphoto li,
+  .general_box h3,
+  .ipsList_data li,
+  .signature,
+  .ipsVerticalTabbed_tabs > ul,
+  .ipsSettings_section,
   ul.post_controls {
     border-color: #666;
   }
@@ -114,6 +150,7 @@
     text-shadow: none;
     color: #fff;
   }
+  #profile_panes_wrap .bar,
   .post_body .citation {
     background-color: #666;
     border-color: #666;
@@ -122,6 +159,14 @@
   #post_preview {
     border: 1px solid #666;
   }
+  .popupInner .ipsBox_container {
+    border-color: #dcdcdc;
+  }
+  .popupInner .block_list li {
+    border-color: #eee;
+  }
+  .ipsHeaderMenu a:hover,
+  .popupInner a:hover,
   .ipsLikeBar_info a:hover,
   ul.post_controls > li > a:hover,
   table.ipb_table .col_f_views li > a:hover,
