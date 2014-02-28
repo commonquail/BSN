@@ -64,6 +64,7 @@
   .post.entry-content p,
   .status_content,
   .ipsType_pagetitle,
+  .no_messages,
   .topic_buttons > li.non_button > a:hover {
     color: #ddd;
   }
@@ -81,7 +82,9 @@
   #forum_footer,
   .pagejump > a,
   .ipsButton_extra,
+  .ipsSideMenu h4,
   .ipsType_pagedesc.forum_rules,
+  .ipsType_pagedesc,
   .col_f_content > .topic_desc,
   .download_pane h2,
   .topic_buttons > li.non_button > a,
@@ -96,6 +99,7 @@
   .post_block,
   .column_view .post_body,
   ul.post_controls,
+  .no_messages,
   .ipsSideBlock {
     background: none;
   }
@@ -103,9 +107,12 @@
   table.ipb_table td,
   #forum_table.ipb_table tr:last-of-type > td,
   #footer_utilities,
+  div#search_results li.liwrap,
   .download_pane h2,
   .status_feedback .ipsList_withtinyphoto > li,
   .ipsSideBlock h3,
+  .ipsSideMenu > ul,
+  .ipsSideMenu > ul > li,
   .ipsList_withminiphoto li,
   ul.post_controls {
     border-color: #666;
