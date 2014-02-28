@@ -1,14 +1,16 @@
 # BioWare Forum Fixes
 
 These user scripts improve the usability of the [BioWare Forum][BSN]. The style
-sheet aims to improve overall readability of the white theme while the script
-improves functionality such as navigation. See the respective sites for a
-feature overview; it won't be included here for maintenance reasons.
+sheets aim to improve overall readability of the white theme and provide an
+equivalent dark theme while the script improves functionality such as
+navigation. See the respective sites for a feature overview; it won't be
+included here for maintenance reasons.
 
 ## Installation
 
-It is recommended to install the files from [userstyles.org][CSS] respectively
-[userscripts.org][JS] to better facilitate updating.
+It is recommended to install the files from [userstyles.org][CSS]
+([theme][CSS-Dark]) respectively [userscripts.org][JS] to better facilitate
+updating.
 
 ## Support
 
@@ -24,5 +26,6 @@ in a Google Chrome version.
 [BSN]: http://forum.bioware.com/
 [JS]: http://userscripts.org/scripts/show/399583
 [CSS]: http://userstyles.org/styles/98563/the-bioware-forum
+[CSS-Dark]: http://userstyles.org/styles/98677/the-bioware-forum-dark
 [Stylish]: https://addons.mozilla.org/firefox/addon/stylish/
 [Greasemonkey]: https://addons.mozilla.org/da/firefox/addon/greasemonkey/
