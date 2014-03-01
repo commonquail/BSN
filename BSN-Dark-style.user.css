@@ -52,15 +52,17 @@
   }
   .post_body .ipsBlockquote,
   .statistics_head,
-  .ipsVerticalTabbed_tabs li,
+  #profile_tabs li,
+  #usercp_tabs li,
   .ipbfs_titlebox {
     border-color: #666;
     background-color: #444;
   }
   #profile_panes_wrap .bar,
-  .ipsVerticalTabbed_tabs li.active a {
+  #usercp_tabs li.active a,
+  #profile_tabs li.active a {
       background-color: #555;
-      color: #ddd
+      color: #ddd;
   }
   #statusForm > input {
     vertical-align: middle;
@@ -142,7 +144,8 @@
   .general_box h3,
   .ipsList_data li,
   .signature,
-  .ipsVerticalTabbed_tabs > ul,
+  #profile_tabs > ul,
+  #usercp_tabs > ul,
   .ipsSettings_section,
   ul.post_controls {
     border-color: #666;
