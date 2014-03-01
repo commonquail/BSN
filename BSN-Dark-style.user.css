@@ -71,6 +71,7 @@
   #post_preview,
   #profile_panes_wrap .post p,
   .post.entry-content p,
+  .post_body .post,
   .status_content,
   .ipsType_pagetitle,
   .ipsType_subtitle,
@@ -106,6 +107,7 @@
   .topic_buttons > li.non_button > a,
   .col_f_views > ul > li,
   .general_box,
+  .post_body .post .ipsBlockquote,
   .post.entry-content .ipsBlockquote p {
     color: #bbb;
   }
@@ -150,11 +152,13 @@
     text-shadow: none;
     color: #fff;
   }
+  body#ipboard_body p.submit,
   #profile_panes_wrap .bar,
   .post_body .citation {
     background-color: #666;
     border-color: #666;
     text-shadow: none;
+    color: #ddd;
   }
   #post_preview {
     border: 1px solid #666;
