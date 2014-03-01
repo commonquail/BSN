@@ -11,11 +11,11 @@
   // Display link to friends' status update in global navigation bar.
   var li = document.createElement("li");
   li.id = "nav_app_friendstatus";
-  li.className =  "left";
+  li.className = "left";
   if (location.pathname.startsWith("/statuses/friends")) {
-      li.className += " active";
+    li.className += " active";
   }
-  var a = document.createElement('a');
+  var a = document.createElement("a");
   a.href = "//" + location.host + "/statuses/friends/";
   a.title = "Go to friends' status updates";
   a.textContent = "Friends";
