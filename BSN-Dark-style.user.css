@@ -8,7 +8,7 @@
   /* Status-update comment input */
   .input_text,
   /* Forum post, quote */
-  .post.entry-content p,
+  .post_body .post,
   /* Forum posts on profile page */
   #profile_panes_wrap .post p,
   /* Post previews */
