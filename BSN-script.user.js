@@ -8,26 +8,32 @@
 // @include       http://forum.bioware.com/*
 // ==/UserScript==
 (function () {
-  // Display link to friends' status update in global navigation bar.
-  var li = document.createElement("li");
-  li.id = "nav_app_friendstatus";
-  li.className = "left";
-  if (location.pathname.startsWith("/statuses/friends")) {
-    li.className += " active";
-  }
-  var a = document.createElement("a");
-  a.href = "//" + location.host + "/statuses/friends/";
-  a.title = "Go to friends' status updates";
-  a.textContent = "Friends";
-  li.appendChild(a);
-  var ul = document.getElementById("community_app_menu");
-  ul.insertBefore(li, ul.children[ul.children.length - 1]);
+  linkToFriendUpdates();
 
   if (location.pathname.startsWith("/statuses/")) {
     setTimeout(linkify, 200);
     linkifyHidden();
   }
-  
+
+  /**
+   * Insert a link to friends' status updates in the global navigation bar.
+   */
+  function linkToFriendUpdates() {
+    var li = document.createElement("li");
+    li.id = "nav_app_friendstatus";
+    li.className = "left";
+    if (location.pathname.startsWith("/statuses/friends")) {
+      li.className += " active";
+    }
+    var a = document.createElement("a");
+    a.href = "//" + location.host + "/statuses/friends/";
+    a.title = "Go to friends' status updates";
+    a.textContent = "Friends";
+    li.appendChild(a);
+    var ul = document.getElementById("community_app_menu");
+    ul.insertBefore(li, ul.children[ul.children.length - 1]);
+  }
+
   // Setup an event listener that linkifies new comments after clicking the
   // Show all ... link.
   function linkifyHidden() {
