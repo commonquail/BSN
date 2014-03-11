@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          BioWare Forum
 // @namespace     quail
-// @version       1.1.0
+// @version       1.2.0
 // @updateURL     http://userscripts.org/scripts/source/399583.user.js
 // @grant         none
 // @description   Usability improvements for the BioWare forum.
@@ -9,6 +9,8 @@
 // ==/UserScript==
 (function () {
   linkToFriendUpdates();
+
+  linkToForumsFollowed();
 
   if (location.pathname.startsWith("/statuses/")) {
     setTimeout(linkify, 200);
@@ -32,6 +34,21 @@
     li.appendChild(a);
     var ul = document.getElementById("community_app_menu");
     ul.insertBefore(li, ul.children[ul.children.length - 1]);
+  }
+
+  /**
+   * Inserts a direct link to subscribed forums in the profile drop-down under
+   * the original "Content I Follow" link. The original link is not useful if
+   * the user wishes to subscribe to forums instead of individual topics.
+   */
+  function linkToForumsFollowed() {
+    var followed = document.getElementById("user_likes")
+    var li = document.createElement("li");
+    var a = document.createElement("a");
+    a.href = followed.firstChild.href + "&contentType=forums";
+    a.textContent = a.title = "Forums I Follow"
+    li.appendChild(a);
+    followed.parentNode.insertBefore(li, followed.next().next());
   }
 
   // Setup an event listener that linkifies new comments after clicking the
